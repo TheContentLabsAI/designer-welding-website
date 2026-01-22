@@ -6,9 +6,8 @@ import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
 import { companyInfo, portfolioCategories } from "@/data/siteData"
 
-const Navbar = () => {
+const Navbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const location = useLocation()
 
@@ -26,6 +25,8 @@ const Navbar = () => {
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ]
+  
+  // Note: Body scroll lock is now handled in App.jsx
 
   return (
     <nav
@@ -127,70 +128,7 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="md:hidden fixed inset-0 bg-black/95 backdrop-blur-xl z-40 pt-20 px-4 flex flex-col gap-4 overflow-y-auto"
-          >
-            {navLinks.map((link) => {
-              if (link.hasDropdown) {
-                 return (
-                   <div key={link.name} className="border-b border-white/5 pb-2">
-                     <button 
-                       onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                       className="w-full flex items-center justify-between text-lg font-medium text-white hover:text-accent py-2"
-                     >
-                       {link.name}
-                       <ChevronDown className={cn("w-5 h-5 transition-transform", isDropdownOpen && "rotate-180")} />
-                     </button>
-                     
-                     <AnimatePresence>
-                       {isDropdownOpen && (
-                         <motion.div
-                           initial={{ height: 0, opacity: 0 }}
-                           animate={{ height: "auto", opacity: 1 }}
-                           exit={{ height: 0, opacity: 0 }}
-                           className="overflow-hidden pl-4 space-y-2 mt-2"
-                         >
-                            {portfolioCategories.map((cat) => (
-                              <Link
-                                key={cat}
-                                to={`/portfolio?category=${encodeURIComponent(cat)}`}
-                                className="block text-muted-foreground hover:text-white py-1 text-sm"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                              >
-                                {cat}
-                              </Link>
-                            ))}
-                         </motion.div>
-                       )}
-                     </AnimatePresence>
-                   </div>
-                 )
-              }
-              return (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  className="text-lg font-medium text-white hover:text-accent py-2 border-b border-white/5"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </Link>
-              )
-            })}
-            <a href={`tel:${companyInfo.phone.replace(/\D/g,'')}`} className="w-full mt-4 pb-8">
-              <Button variant="premium" className="w-full">
-                Call {companyInfo.phone}
-              </Button>
-            </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Internal Mobile Menu Removed - Rendered in App.jsx */}
     </nav>
   )
 }
