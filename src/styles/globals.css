@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: Oswald, sans-serif;
+  --font-body: Montserrat, sans-serif;
+
+  --color-border: #27272A;
+  --color-input: #27272A;
+  --color-ring: #C5A059;
+  
+  --color-background: #000000;
+  --color-foreground: #FAFAFA;
+
+  --color-primary: #09090B;
+  --color-primary-foreground: #FAFAFA;
+
+  --color-secondary: #27272A;
+  --color-secondary-foreground: #FAFAFA;
+
+  --color-destructive: #7f1d1d;
+  --color-destructive-foreground: #FAFAFA;
+
+  --color-muted: #27272A;
+  --color-muted-foreground: #A1A1AA;
+
+  --color-accent: #C5A059;
+  --color-accent-foreground: #09090B;
+
+  --color-popover: #09090B;
+  --color-popover-foreground: #FAFAFA;
+
+  --color-card: #09090B;
+  --color-card-foreground: #FAFAFA;
+
+  --radius: 0.5rem;
+  --radius-sm: 0.25rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading uppercase tracking-wide;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "brand_name": "Designer Welding",
+    "description": "Design tokens for Premium Industrial aesthetic."
+  },
+  "colors": {
+    "primary": {
+      "DEFAULT": "#09090B",
+      "hover": "#27272A",
+      "foreground": "#FAFAFA"
+    },
+    "secondary": {
+      "DEFAULT": "#27272A",
+      "foreground": "#FAFAFA"
+    },
+    "accent": {
+      "DEFAULT": "#C5A059",
+      "foreground": "#09090B"
+    },
+    "background": "#000000",
+    "foreground": "#FAFAFA",
+    "muted": "#27272A",
+    "border": "#27272A"
+  },
+  "typography": {
+    "font_family_headings": ["Oswald", "sans-serif"],
+    "font_family_body": ["Montserrat", "sans-serif"],
+    "font_weight_bold": "700",
+    "font_weight_normal": "400"
+  },
+  "ui": {
+    "border_radius_default": "0.5rem",
+    "border_radius_small": "0.25rem",
+    "spacing_base_unit": "4px"
+  }
+}
