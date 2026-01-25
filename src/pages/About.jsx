@@ -1,8 +1,9 @@
 import { motion, useScroll, useTransform } from "framer-motion"
-import { companyInfo, testimonials } from "@/data/siteData"
-import { Check, Star } from "lucide-react"
+import { companyInfo } from "@/data/siteData"
+import { Check } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
+import ReviewWidget from "@/components/common/ReviewWidget"
 
 const AboutPage = () => {
   const { scrollY } = useScroll();
@@ -16,17 +17,6 @@ const AboutPage = () => {
         <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
 
         <div className="container mx-auto px-4 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex items-center justify-center gap-3 mb-4"
-          >
-            <div className="flex text-accent">
-              {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 fill-current" />)}
-            </div>
-            <span className="text-zinc-400 text-sm">5.0 Star Rated · 2 Reviews</span>
-          </motion.div>
-          
           <motion.h1 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -49,28 +39,8 @@ const AboutPage = () => {
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-white uppercase mt-2">What They Say</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {testimonials.map((t, index) => (
-              <motion.div 
-                key={t.id} 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.02, rotateY: 2 }}
-                className="bg-secondary/20 p-8 rounded-lg border border-white/5 hover:border-accent/20 transition-all"
-              >
-                <div className="flex gap-1 mb-4 text-accent">
-                  {[...Array(t.rating)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
-                </div>
-                <p className="text-white/80 italic mb-6">"{t.text}"</p>
-                <div>
-                  <h4 className="text-white font-bold font-heading uppercase">{t.name}</h4>
-                  <span className="text-sm text-muted-foreground">{t.role}</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {/* Live Review Widget */}
+          <ReviewWidget />
         </div>
       </section>
 
@@ -129,16 +99,16 @@ const AboutPage = () => {
             viewport={{ once: true }}
           >
             <img 
-              src="/images/about-workshop.png" 
-              alt="Master welder in workshop" 
+              src="/images/service-gates.png" 
+              alt="Custom iron fence and gate installation" 
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60"></div>
             
             {/* Caption Overlay */}
             <div className="absolute bottom-6 left-6 right-6 border-l-2 border-accent pl-4">
-              <span className="block text-accent text-xs font-bold uppercase tracking-widest mb-1">Craftsmanship</span>
-              <span className="block text-white font-heading font-bold text-xl uppercase">Precision in Every Weld</span>
+              <span className="block text-accent text-xs font-bold uppercase tracking-widest mb-1">Our Work</span>
+              <span className="block text-white font-heading font-bold text-xl uppercase">Premium Iron Craftsmanship</span>
             </div>
           </motion.div>
         </div>
