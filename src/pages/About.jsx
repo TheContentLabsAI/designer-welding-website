@@ -83,7 +83,7 @@ const AboutPage = () => {
             </div>
 
             <div className="pt-6">
-              <Link to="/contact">
+              <Link to="/#hero-form">
                 <Button size="lg" className="w-full md:w-auto bg-accent text-black hover:bg-white font-bold text-lg px-8 h-14 hover:scale-105 transition-transform">
                   Request Consultation
                 </Button>

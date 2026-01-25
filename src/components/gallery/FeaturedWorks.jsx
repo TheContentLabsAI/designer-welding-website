@@ -84,7 +84,7 @@ const FeaturedWorks = () => {
                                     {selectedProject.description}
                                 </p>
                                 <div className="flex gap-4">
-                                    <Link to="/contact" onClick={() => setSelectedProject(null)}>
+                                    <Link to="/#hero-form" onClick={() => setSelectedProject(null)}>
                                         <Button className="bg-accent text-black hover:bg-white">
                                             Get a Quote <ChevronRight className="w-4 h-4 ml-2" />
                                         </Button>

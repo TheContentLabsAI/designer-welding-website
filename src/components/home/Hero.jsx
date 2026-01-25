@@ -83,7 +83,7 @@ const Hero = () => {
               className="flex flex-col items-center lg:items-start"
             >
               {/* Trust Badge - Above Fold (Hack #1) */}
-              <div className="inline-flex items-center gap-2 mb-4 md:mb-6 scale-90 md:scale-100 origin-center lg:origin-left">
+              <div className="inline-flex items-center gap-2 mb-3 md:mb-4 scale-90 md:scale-100 origin-center lg:origin-left">
                  <div className="flex items-center gap-1.5 px-3 py-1.5 border border-accent/20 rounded-full bg-accent/5 backdrop-blur-sm">
                     <ShieldCheck className="w-3.5 h-3.5 text-accent" />
                     <span className="text-accent text-[10px] md:text-xs font-bold uppercase tracking-widest">Licensed #939723</span>
@@ -100,18 +100,18 @@ const Hero = () => {
                  </div>
               </div>
 
-              {/* Headline */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-black text-white uppercase tracking-wide leading-[1.2] mb-4 md:mb-6 drop-shadow-2xl text-center lg:text-left text-balance">
+              {/* Headline - Larger and more prominent */}
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-black text-white uppercase tracking-wide leading-[1.1] mb-4 md:mb-5 drop-shadow-2xl text-center lg:text-left text-balance">
                 Mastery <br className="hidden md:block"/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-300 via-white to-zinc-400">
                   In Metal.
                 </span>
               </h1>
 
-              {/* Subheadline with vertical line */}
-              <div className="flex flex-col md:flex-row gap-4 md:gap-6 mb-8 md:mb-10 text-center lg:text-left items-center lg:items-start max-w-xl mx-auto lg:mx-0">
+              {/* Subheadline with vertical line - Tighter spacing */}
+              <div className="flex flex-col md:flex-row gap-3 md:gap-4 mb-6 md:mb-8 text-center lg:text-left items-center lg:items-start max-w-xl mx-auto lg:mx-0">
                  <div className="hidden md:block w-0.5 bg-accent/30 self-stretch"></div>
-                 <p className="text-base md:text-lg lg:text-xl text-zinc-300 font-light leading-normal md:leading-relaxed">
+                 <p className="text-sm md:text-base lg:text-lg text-zinc-300 font-light leading-relaxed">
                    We engineer security and curb appeal into every project. 
                    From custom <span className="text-white font-medium">driveway gates</span> to <span className="text-white font-medium">structural railing</span> systems.
                  </p>
@@ -122,7 +122,7 @@ const Hero = () => {
                 <Link to="/portfolio" className="w-full sm:w-auto group">
                   <Button 
                     variant="outline" 
-                    className="w-full sm:w-auto h-12 md:h-14 px-8 text-sm md:text-base border-white/10 text-white hover:bg-accent hover:text-black hover:border-accent uppercase tracking-wide transition-all backdrop-blur-sm bg-black/20 hover:scale-105 hover:shadow-[0_0_30px_rgba(197,160,89,0.3)]"
+                    className="w-full sm:w-auto h-11 md:h-12 px-6 md:px-8 text-sm md:text-base border-white/10 text-white hover:bg-accent hover:text-black hover:border-accent uppercase tracking-wide transition-all backdrop-blur-sm bg-black/20 hover:scale-105 hover:shadow-[0_0_30px_rgba(197,160,89,0.3)]"
                   >
                     View Our Work
                     <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform group-hover:text-black" />
@@ -130,8 +130,8 @@ const Hero = () => {
                 </Link>
               </div>
 
-              {/* Stats Footer - Credibility */}
-              <div className="mt-8 md:mt-12 flex items-center justify-center lg:justify-start gap-6 md:gap-8 border-t border-white/5 pt-6 w-full max-w-sm lg:max-w-none mx-auto lg:mx-0">
+              {/* Stats Footer - Credibility - More compact */}
+              <div className="mt-6 md:mt-8 flex items-center justify-center lg:justify-start gap-6 md:gap-8 border-t border-white/5 pt-4 md:pt-5 w-full max-w-sm lg:max-w-none mx-auto lg:mx-0">
                  <div className="flex flex-col items-center lg:items-start">
                     <div className="text-xl md:text-2xl font-bold text-white font-heading">25+</div>
                     <div className="text-[9px] md:text-[10px] uppercase tracking-widest text-zinc-500">Years Experience</div>

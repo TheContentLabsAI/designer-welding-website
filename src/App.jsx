@@ -79,39 +79,6 @@ function App() {
                  Our Works
               </Link>
 
-               {/* Mobile Dropdown for Categories */}
-               <div className="border-b border-white/5 pb-2">
-                 <button 
-                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                   className="w-full flex items-center justify-between text-lg font-medium text-white hover:text-accent py-2"
-                 >
-                   Browse Categories
-                   <ChevronDown className={cn("w-5 h-5 transition-transform", isDropdownOpen && "rotate-180")} />
-                 </button>
-                 
-                 <AnimatePresence>
-                   {isDropdownOpen && (
-                     <motion.div
-                       initial={{ height: 0, opacity: 0 }}
-                       animate={{ height: "auto", opacity: 1 }}
-                       exit={{ height: 0, opacity: 0 }}
-                       className="overflow-hidden pl-4 space-y-2 mt-2"
-                     >
-                        {portfolioCategories.map((cat) => (
-                          <Link
-                            key={cat}
-                            to={`/portfolio?category=${encodeURIComponent(cat)}`}
-                            className="block text-muted-foreground hover:text-white py-1 text-sm"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                          >
-                            {cat}
-                          </Link>
-                        ))}
-                     </motion.div>
-                   )}
-                 </AnimatePresence>
-               </div>
-
               <Link
                 to="/services"
                 className="text-lg font-medium text-white hover:text-accent py-2 border-b border-white/5"

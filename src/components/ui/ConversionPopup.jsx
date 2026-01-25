@@ -82,7 +82,7 @@ const ConversionPopup = () => {
               </p>
               
               <div className="flex flex-col gap-3">
-                <Link to="/contact" onClick={handleClose}>
+                <Link to="/#hero-form" onClick={handleClose}>
                   <Button variant="premium" className="w-full text-base h-12">
                     Get My Free Quote
                   </Button>

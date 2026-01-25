@@ -54,7 +54,7 @@ const ServicesPage = () => {
             </div>
             
             <div className="text-center mt-8 mb-6">
-                 <Link to="/contact">
+                 <Link to="/#hero-form">
                     <Button variant="premium" className="px-8 h-12">Get a Free Estimate</Button>
                  </Link>
             </div>
@@ -93,7 +93,7 @@ const ServicesPage = () => {
                    ))}
                  </div>
 
-                 <Link to="/contact">
+                 <Link to="/#hero-form">
                     <Button variant="outline" className="mt-4 border-white/20 text-white hover:bg-accent hover:text-black uppercase tracking-wide font-bold h-12 px-8">
                     Request Consultation
                     </Button>
@@ -133,7 +133,7 @@ const ServicesPage = () => {
             <p className="text-xl font-medium mb-8 max-w-2xl mx-auto">
                 Call us or send a message to discuss your project.
             </p>
-            <Link to="/contact">
+            <Link to="/#hero-form">
                 <Button size="lg" className="bg-black text-white hover:bg-black/80 border-none text-lg px-12 py-6 h-auto">
                     Start Your Project
                 </Button>
