@@ -110,10 +110,11 @@ const HeroForm = () => {
 
   return (
     <motion.div
+      id="hero-form"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5, duration: 0.8 }}
-      className="w-full max-w-md lg:max-w-[500px] bg-zinc-900/80 backdrop-blur-xl border-2 border-accent/60 rounded-2xl p-8 md:p-10 shadow-[0_0_50px_-10px_rgba(234,179,8,0.3)] relative group"
+      className="w-full max-w-md lg:max-w-[500px] bg-zinc-900/80 backdrop-blur-xl border-2 border-accent/60 rounded-2xl p-8 md:p-10 shadow-[0_0_50px_-10px_rgba(234,179,8,0.3)] relative group transition-all duration-300"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-accent/10 to-transparent pointer-events-none"></div>
       
