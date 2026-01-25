@@ -2,16 +2,41 @@ import Hero from "@/components/home/Hero"
 import Services from "@/components/home/Services"
 import FeaturedWorks from "@/components/gallery/FeaturedWorks"
 import LeadForm from "@/components/forms/LeadForm"
+import TrustStrip from "@/components/home/TrustStrip"
+import ValueProp from "@/components/home/ValueProp"
+import ProcessTimeline from "@/components/home/ProcessTimeline"
+import Testimonials from "@/components/home/Testimonials"
+import FAQ from "@/components/home/FAQ"
 
 const Home = () => {
   return (
     <div className="flex flex-col min-h-screen bg-black">
+      {/* 1. Hook & Authority - Dark */}
       <Hero />
+      
+      {/* 2. Immediate Trust & Credibility - Light */}
+      <TrustStrip />
+      
+      {/* 3. The "Problem" & "Solution" - Light */}
+      <ValueProp />
+      
+      {/* 6. Services - Light */}
       <Services />
+
+      {/* 4. Process - Light */}
+      <ProcessTimeline />
+      
+      {/* 5. Portfolio - Light */}
       <FeaturedWorks />
       
-      {/* Contact / Lead Capture Section */}
-      <section className="py-24 bg-zinc-900 border-t border-white/10 relative overflow-hidden" id="contact">
+      {/* 7. Social Proof - Light */}
+      <Testimonials />
+
+      {/* 8. FAQ - Light */}
+      <FAQ />
+      
+      {/* 9. Final CTA - Dark for impact at end */}
+      <section className="py-24 bg-zinc-900 border-t border-zinc-800 relative overflow-hidden" id="contact">
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             

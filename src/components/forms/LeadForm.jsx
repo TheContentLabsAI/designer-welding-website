@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils"
 import { Check, ChevronRight, ChevronLeft } from "lucide-react"
 import { services } from "@/data/siteData"
 
+import { validatePhone } from "@/lib/utils"
+
 const steps = [
   { id: 1, title: "Contact Info" },
   { id: 2, title: "Service Needed" },
@@ -14,7 +16,8 @@ const steps = [
 const LeadForm = () => {
   const [currentStep, setCurrentStep] = useState(1)
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
     service: "",
@@ -28,12 +31,19 @@ const LeadForm = () => {
     let isValid = true
 
     if (step === 1) {
-      if (!formData.name.trim()) {
-        newErrors.name = "Name is required"
+      if (!formData.firstName.trim()) {
+        newErrors.firstName = "First Name is required"
+        isValid = false
+      }
+      if (!formData.lastName.trim()) {
+        newErrors.lastName = "Last Name is required"
         isValid = false
       }
       if (!formData.phone.trim()) {
         newErrors.phone = "Phone is required"
+        isValid = false
+      } else if (!validatePhone(formData.phone)) {
+        newErrors.phone = "Invalid Phone Number"
         isValid = false
       }
     }
@@ -82,12 +92,12 @@ const LeadForm = () => {
         </div>
         <h3 className="text-2xl font-heading font-bold text-white mb-2">Request Received</h3>
         <p className="text-muted-foreground">
-          Thank you, {formData.name}. We will review your project details and contact you shortly.
+          Thank you, {formData.firstName}. We will review your project details and contact you shortly.
         </p>
         <Button 
           variant="outline" 
           className="mt-8 border-white/10" 
-          onClick={() => { setIsSubmitted(false); setCurrentStep(1); setFormData({ name: "", email: "", phone: "", service: "", details: "" }); setErrors({}) }}
+          onClick={() => { setIsSubmitted(false); setCurrentStep(1); setFormData({ firstName: "", lastName: "", email: "", phone: "", service: "", details: "" }); setErrors({}) }}
         >
           Start New Request
         </Button>
@@ -134,18 +144,33 @@ const LeadForm = () => {
             >
               <h2 className="text-2xl font-heading font-bold text-white mb-6">Let's get in touch</h2>
               <div className="grid gap-4">
-                <div>
-                  <input
-                    name="name"
-                    placeholder="Full Name *"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className={cn(
-                      "w-full bg-secondary border rounded-md p-3 text-white placeholder:text-muted-foreground focus:outline-none focus:border-accent",
-                      errors.name ? "border-red-500" : "border-white/10"
-                    )}
-                  />
-                  {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <input
+                        name="firstName"
+                        placeholder="First Name *"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        className={cn(
+                          "w-full bg-secondary border rounded-md p-3 text-white placeholder:text-muted-foreground focus:outline-none focus:border-accent",
+                          errors.firstName ? "border-red-500" : "border-white/10"
+                        )}
+                      />
+                      {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
+                    </div>
+                    <div>
+                      <input
+                        name="lastName"
+                        placeholder="Last Name *"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        className={cn(
+                          "w-full bg-secondary border rounded-md p-3 text-white placeholder:text-muted-foreground focus:outline-none focus:border-accent",
+                          errors.lastName ? "border-red-500" : "border-white/10"
+                        )}
+                      />
+                      {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>}
+                    </div>
                 </div>
                 
                 <div>

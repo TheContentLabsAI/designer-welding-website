@@ -84,3 +84,27 @@ export const testimonials = [
     rating: 5
   }
 ];
+
+export const projects = [
+  {
+    id: 1,
+    title: "Laguna Beach Estate",
+    category: "Railings",
+    imageUrl: "/images/project-railings-v2.png",
+    description: "Custom wrought iron balcony railings with intricate scrollwork, powder-coated in matte black for a timeless coastal look."
+  },
+  {
+    id: 2,
+    title: "Modern Farmhouse Gate",
+    category: "Gates",
+    imageUrl: "/images/project-gate-v2.png",
+    description: "Automated driveway gate featuring horizontal slats and integrated privacy wood paneling, perfect for modern security."
+  },
+  {
+    id: 3,
+    title: "Newport Security Doors",
+    category: "Doors",
+    imageUrl: "/images/project-door-v2.png",
+    description: "Heavy-duty security screen doors with geometric patterns that allow airflow while providing maximum protection."
+  }
+];
