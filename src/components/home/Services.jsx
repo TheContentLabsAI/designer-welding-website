@@ -1,5 +1,6 @@
 import { motion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
+import { Link } from "react-router-dom"
 import { services } from "@/data/siteData"
 
 const Services = () => {
@@ -27,31 +28,36 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="group relative h-[350px] bg-zinc-900 border border-white/5 p-8 flex flex-col justify-between hover:bg-zinc-800 hover:border-accent/30 transition-all duration-500 rounded-lg overflow-hidden"
+                className="h-[350px]"
               >
-                <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ArrowUpRight className="text-accent w-6 h-6" />
-                </div>
-                
-                <div className="text-zinc-500 group-hover:text-white transition-colors duration-500">
-                  <Icon className="w-12 h-12" />
-                </div>
-                
-                <div className="relative z-10">
-                  <h3 className="text-2xl font-heading font-bold text-white mb-2 group-hover:text-accent transition-colors">{service.title}</h3>
-                  <p className="text-zinc-500 text-sm leading-relaxed mb-4 group-hover:text-white/70">{service.shortDesc}</p>
-                  
-                  <div className="flex flex-wrap gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0 delay-100">
-                    {service.features.slice(0, 2).map(feature => (
-                      <span key={feature} className="text-[10px] uppercase tracking-wider px-2 py-1 bg-white/5 rounded text-white/70">
-                        {feature}
-                      </span>
-                    ))}
+                <Link 
+                  to={`/services#${service.id}`}
+                  className="group relative h-full bg-zinc-900 border border-white/5 p-8 flex flex-col justify-between hover:bg-zinc-800 hover:border-accent/30 transition-all duration-500 rounded-lg overflow-hidden cursor-pointer"
+                >
+                  <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ArrowUpRight className="text-accent w-6 h-6" />
                   </div>
-                </div>
+                  
+                  <div className="text-zinc-500 group-hover:text-white transition-colors duration-500">
+                    <Icon className="w-12 h-12" />
+                  </div>
+                  
+                  <div className="relative z-10">
+                    <h3 className="text-2xl font-heading font-bold text-white mb-2 group-hover:text-accent transition-colors">{service.title}</h3>
+                    <p className="text-zinc-500 text-sm leading-relaxed mb-4 group-hover:text-white/70">{service.shortDesc}</p>
+                    
+                    <div className="flex flex-wrap gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0 delay-100">
+                      {service.features.slice(0, 2).map(feature => (
+                        <span key={feature} className="text-[10px] uppercase tracking-wider px-2 py-1 bg-white/5 rounded text-white/70">
+                          {feature}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
 
-                 {/* Hover Glow */}
-                 <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-accent/20 blur-3xl rounded-full group-hover:bg-accent/40 transition-all duration-500"></div>
+                   {/* Hover Glow */}
+                   <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-accent/20 blur-3xl rounded-full group-hover:bg-accent/40 transition-all duration-500"></div>
+                </Link>
               </motion.div>
             )
           })}

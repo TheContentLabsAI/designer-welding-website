@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --font-heading: Oswald, sans-serif;
-  --font-body: Montserrat, sans-serif;
+  --font-heading: "Bebas Neue", sans-serif;
+  --font-body: "Work Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 
   --color-border: #27272A;
   --color-input: #27272A;
@@ -42,9 +43,14 @@
   }
   body {
     @apply bg-background text-foreground font-body;
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading uppercase tracking-wide;
+    @apply font-heading uppercase;
+    overflow-wrap: break-word; /* Prevent overflow on small screens */
+    letter-spacing: 0.1em; /* Improve readability for condensed fonts */
   }
 }
 
@@ -55,5 +61,22 @@
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+  
+  @keyframes grain {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-5%, -10%); }
+    20% { transform: translate(-15%, 5%); }
+    30% { transform: translate(7%, -25%); }
+    40% { transform: translate(-5%, 25%); }
+    50% { transform: translate(-15%, 10%); }
+    60% { transform: translate(15%, 0%); }
+    70% { transform: translate(0%, 15%); }
+    80% { transform: translate(3%, 35%); }
+    90% { transform: translate(-10%, 10%); }
+  }
+  
+  .grain-overlay {
+    animation: grain 8s steps(10) infinite;
   }
 }

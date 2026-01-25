@@ -6,17 +6,20 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react"
 const ContactPage = () => {
   return (
     <div className="bg-black min-h-screen pt-20">
-       <section className="py-12 bg-secondary/10 border-b border-white/5">
-        <div className="container mx-auto px-4 text-center">
+      <section className="pt-32 pb-12 bg-black border-b border-white/5 relative overflow-hidden">
+        {/* Subtle texture/gradient */}
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
+
+        <div className="container mx-auto px-4 text-center relative z-10">
           <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-heading font-bold text-white uppercase mb-4"
+            className="text-3xl md:text-5xl font-heading font-bold text-white uppercase mb-4"
           >
-            Get In <span className="text-accent">Touch</span>
+            Get a Quote in <span className="text-accent">Orange County</span>
           </motion.h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Ready to start your project? We're here to help.
+          <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
+            Expert fabrication for residential and commercial projects.
           </p>
         </div>
       </section>
@@ -45,7 +48,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h4 className="text-white font-bold uppercase mb-1">Call Us</h4>
-                    <a href={`tel:${companyInfo.phone.replace(/\D/g,'')}`} className="text-muted-foreground hover:text-white transition-colors">
+                    <a href={`tel:${companyInfo.phone.replace(/\D/g,'')}`} className="text-xl text-muted-foreground hover:text-white transition-colors block py-1">
                       {companyInfo.phone}
                     </a>
                   </div>
@@ -57,7 +60,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h4 className="text-white font-bold uppercase mb-1">Email Us</h4>
-                    <a href={`mailto:${companyInfo.email}`} className="text-muted-foreground hover:text-white transition-colors">
+                    <a href={`mailto:${companyInfo.email}`} className="text-lg text-muted-foreground hover:text-white transition-colors block py-1 break-all">
                       {companyInfo.email}
                     </a>
                   </div>

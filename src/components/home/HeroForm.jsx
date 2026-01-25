@@ -88,7 +88,7 @@ const HeroForm = () => {
 
       <div className="relative z-10 pt-2">
         {/* Review Snippet (Hack #6: Testimonials with Intent) */}
-        <div className="flex items-center justify-center gap-2 mb-4 opacity-90">
+        <div className="flex items-center justify-center gap-2 mb-3 md:mb-4 opacity-90">
             <div className="flex -space-x-2">
                 {[1,2,3].map(i => (
                     <div key={i} className="w-6 h-6 rounded-full border border-zinc-900 bg-gray-200 flex items-center justify-center text-[8px] font-bold text-black overflow-hidden">
@@ -96,22 +96,22 @@ const HeroForm = () => {
                     </div>
                 ))}
             </div>
-            <p className="text-white/80 text-[11px] font-medium leading-tight">
+            <p className="text-white/80 text-[10px] md:text-[11px] font-medium leading-tight">
                 "Best investment for our home." <br/>
-                <span className="text-accent opacity-80">- Sarah T., Newport Beach</span>
+                <span className="text-accent opacity-80">- Sarah T., Orange County</span>
             </p>
         </div>
 
-        <h3 className="text-2xl md:text-3xl font-black text-white uppercase font-heading mb-1 text-center leading-none">
-            Check <span className="text-accent text-transparent bg-clip-text bg-gradient-to-r from-accent via-yellow-200 to-accent animate-text-shimmer bg-[length:200%_auto]">Availability</span> & Pricing
+        <h3 className="text-2xl md:text-3xl font-black text-white uppercase font-heading mb-2 text-center leading-none">
+            Start Your <span className="text-accent text-transparent bg-clip-text bg-gradient-to-r from-accent via-yellow-200 to-accent animate-text-shimmer bg-[length:200%_auto]">Free Consultation</span>
         </h3>
-        <p className="text-muted-foreground text-sm text-center mb-6 uppercase tracking-wider font-semibold">
-           <span className="text-green-500">● Limited Spots</span> • Response in &lt; 24 Hrs
+        <p className="text-muted-foreground text-xs md:text-sm text-center mb-5 md:mb-6 font-medium max-w-[90%] mx-auto">
+           We meet to discuss your vision, assess the site & provide expert recommendations.
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4" id="get-quote">
+            <div className="space-y-3 md:space-y-4">
+                <div className="grid grid-cols-2 gap-3 md:gap-4">
                     <div className="group/input relative">
                         <input
                             required
@@ -123,7 +123,7 @@ const HeroForm = () => {
                                 if(errors.firstName) setErrors({...errors, firstName: false})
                             }}
                             className={cn(
-                                "w-full h-14 bg-black/60 border rounded-lg px-4 text-white placeholder:text-white/40 focus:outline-none focus:border-accent focus:bg-black/80 transition-all font-medium text-lg",
+                                "w-full h-12 md:h-14 bg-black/60 border rounded-lg px-4 text-white placeholder:text-white/40 focus:outline-none focus:border-accent focus:bg-black/80 transition-all font-medium text-base md:text-lg",
                                 errors.firstName ? "border-red-500" : "border-white/10"
                             )}
                         />
@@ -139,7 +139,7 @@ const HeroForm = () => {
                                 if(errors.lastName) setErrors({...errors, lastName: false})
                             }}
                             className={cn(
-                                "w-full h-14 bg-black/60 border rounded-lg px-4 text-white placeholder:text-white/40 focus:outline-none focus:border-accent focus:bg-black/80 transition-all font-medium text-lg",
+                                "w-full h-12 md:h-14 bg-black/60 border rounded-lg px-4 text-white placeholder:text-white/40 focus:outline-none focus:border-accent focus:bg-black/80 transition-all font-medium text-base md:text-lg",
                                 errors.lastName ? "border-red-500" : "border-white/10"
                             )}
                         />
@@ -157,7 +157,7 @@ const HeroForm = () => {
                             if(errors.phone) setErrors({...errors, phone: false})
                         }}
                         className={cn(
-                            "w-full h-14 bg-black/60 border rounded-lg px-4 text-white placeholder:text-white/40 focus:outline-none focus:border-accent focus:bg-black/80 transition-all font-medium text-lg",
+                            "w-full h-12 md:h-14 bg-black/60 border rounded-lg px-4 text-white placeholder:text-white/40 focus:outline-none focus:border-accent focus:bg-black/80 transition-all font-medium text-base md:text-lg",
                             errors.phone ? "border-red-500 text-red-100" : "border-white/10"
                         )}
                     />
@@ -169,7 +169,7 @@ const HeroForm = () => {
                         required
                         value={formData.service}
                         onChange={(e) => setFormData({...formData, service: e.target.value})}
-                        className="w-full h-14 bg-black/60 border border-white/10 rounded-lg px-4 text-white/90 focus:outline-none focus:border-accent focus:bg-black/80 transition-all font-medium appearance-none cursor-pointer text-lg"
+                        className="w-full h-12 md:h-14 bg-black/60 border border-white/10 rounded-lg px-4 text-white/90 focus:outline-none focus:border-accent focus:bg-black/80 transition-all font-medium appearance-none cursor-pointer text-base md:text-lg"
                     >
                         <option value="" disabled className="text-gray-500">Select Project Type</option>
                         {services.map(s => (
@@ -184,13 +184,13 @@ const HeroForm = () => {
             <Button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full h-16 mt-2 bg-gradient-to-r from-accent to-yellow-500 text-black font-black uppercase tracking-wide hover:brightness-110 hover:scale-[1.02] shadow-[0_0_25px_-5px_var(--accent)] transition-all duration-300 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 text-lg"
+                className="w-full h-14 md:h-16 mt-2 bg-gradient-to-r from-accent to-yellow-500 text-black font-black uppercase tracking-wide hover:brightness-110 hover:scale-[1.02] shadow-[0_0_25px_-5px_var(--accent)] transition-all duration-300 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 text-base md:text-lg"
             >
                 {isSubmitting ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
                 ) : (
                     <span className="flex items-center gap-2">
-                        Check Availability <ChevronRight className="w-5 h-5 stroke-[3]" />
+                        Request Consultation <ChevronRight className="w-5 h-5 stroke-[3]" />
                     </span>
                 )}
             </Button>

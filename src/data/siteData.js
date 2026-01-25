@@ -21,7 +21,8 @@ export const services = [
     shortDesc: "High-end centerpieces for residential and commercial properties.",
     fullDesc: "Our custom railings serve as the architectural centerpiece of your property. Whether intricate wrought iron or sleek modern steel, we design matching styles that are both functional and decorative.",
     features: ["Custom Style Matching", "Stair & Balcony Focus", "Code Compliant Safety", "Interior & Exterior"],
-    icon: PenTool
+    icon: PenTool,
+    image: "/images/service-railings.png"
   },
   {
     id: "gates",
@@ -29,7 +30,8 @@ export const services = [
     shortDesc: "Security and ornamental solutions for homes and driveways.",
     fullDesc: "From grand driveway entrances to secure pedestrian access, our gates combine security with curb appeal. We specialize in motorization and custom hardware integration.",
     features: ["Double Entry Gates", "Sliding Patio Gates", "Motorized Systems", "High-Security Builds"],
-    icon: ShieldCheck
+    icon: ShieldCheck,
+    image: "/images/service-gates.png"
   },
   {
     id: "fences",
@@ -37,7 +39,8 @@ export const services = [
     shortDesc: "Durable metal fencing for security and curb appeal.",
     fullDesc: "Secure your perimeter without sacrificing aesthetics. Our metal fencing solutions offer sound-of-mind security with ornamental designs available for pool safety and property lines.",
     features: ["Ornamental Iron", "Pool Safety Codes", "Perimeter Security", "Privacy Panels"],
-    icon: Hammer
+    icon: Hammer,
+    image: "/images/service-fences.png"
   },
   {
     id: "doors-windows",
@@ -45,7 +48,8 @@ export const services = [
     shortDesc: "Modern and secure ironwork for home entry points.",
     fullDesc: "Enhance your home's security and style with custom iron doors and window guards. We integrate wood and glass for modern, secure entry points.",
     features: ["Modern Iron Doors", "Security Window Guards", "Wood-Integrated Gates", "Custom Pivots"],
-    icon: ShieldCheck
+    icon: ShieldCheck,
+    image: "/images/service-doors.png"
   }
 ];
 

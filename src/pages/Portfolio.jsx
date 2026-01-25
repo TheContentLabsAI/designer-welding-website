@@ -45,19 +45,23 @@ const PortfolioPage = () => {
 
   return (
     <div className="bg-black min-h-screen pt-20">
-      <section className="py-12 bg-secondary/10 border-b border-white/5">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-heading font-bold text-white uppercase mb-4">
-            Our <span className="text-accent">Works</span>
+      <section className="pt-32 pb-12 bg-black border-b border-white/5 relative overflow-hidden">
+        {/* Subtle texture/gradient */}
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
+
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h1 className="text-3xl md:text-5xl font-heading font-bold text-white uppercase mb-4">
+            Premium Metalwork <span className="text-accent">Gallery</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            A showcase of precision engineering and artistic metalwork.
+          <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
+            Showcasing custom fabrications for homes and businesses across Orange County.
           </p>
         </div>
       </section>
 
       {/* Filters */}
-      <section className="py-6 border-b border-white/5 sticky top-20 bg-black/80 backdrop-blur-md z-40 group">
+      {/* Filters */}
+      <section className="py-4 border-b border-white/5 sticky top-20 bg-black/80 backdrop-blur-md z-40">
         <div className="container mx-auto px-4 relative flex items-center">
           
           {/* Scroll Buttons - Visible on Desktop */}
@@ -75,14 +79,14 @@ const PortfolioPage = () => {
 
           <div 
              ref={scrollContainerRef}
-             className="flex flex-nowrap gap-3 overflow-x-auto no-scrollbar pb-2 px-2 md:justify-start scroll-smooth w-full"
+             className="flex flex-nowrap gap-3 overflow-x-auto no-scrollbar pb-2 px-2 md:justify-start scroll-smooth w-full touch-pan-x"
           >
             {mainFilters.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
                 className={cn(
-                  "whitespace-nowrap px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all border shrink-0",
+                  "whitespace-nowrap px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all border shrink-0 min-h-[44px] touch-manipulation",
                   filter === cat 
                     ? "bg-accent text-black border-accent shadow-[0_0_20px_rgba(197,160,89,0.3)] scale-105" 
                     : "bg-zinc-900/50 text-muted-foreground border-white/10 hover:border-white/30 hover:text-white"
@@ -105,8 +109,8 @@ const PortfolioPage = () => {
       </section>
 
       {/* Gallery Grid */}
-      <section className="py-16 container mx-auto px-4">
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="py-12 container mx-auto px-4">
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           <AnimatePresence>
             {filteredProjects.map((project) => (
               <motion.div

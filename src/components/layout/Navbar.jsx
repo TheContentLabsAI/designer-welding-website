@@ -119,13 +119,6 @@ const Navbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
           </a>
         </div>
 
-        {/* Mobile Toggle */}
-        <button
-          className="md:hidden text-white hover:text-accent transition-colors relative z-50"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
       </div>
 
       {/* Internal Mobile Menu Removed - Rendered in App.jsx */}

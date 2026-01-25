@@ -23,6 +23,7 @@ const ScrollToTop = () => {
 }
 
 import ConversionPopup from "@/components/ui/ConversionPopup"
+import MobileBottomBar from "@/components/layout/MobileBottomBar"
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -44,6 +45,11 @@ function App() {
         <ConversionPopup />
         
         <Navbar 
+          isMobileMenuOpen={isMobileMenuOpen} 
+          setIsMobileMenuOpen={setIsMobileMenuOpen} 
+        />
+        
+        <MobileBottomBar 
           isMobileMenuOpen={isMobileMenuOpen} 
           setIsMobileMenuOpen={setIsMobileMenuOpen} 
         />

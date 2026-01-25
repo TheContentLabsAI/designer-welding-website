@@ -149,10 +149,11 @@ const LeadForm = () => {
                       <input
                         name="firstName"
                         placeholder="First Name *"
+                        autoComplete="given-name"
                         value={formData.firstName}
                         onChange={handleChange}
                         className={cn(
-                          "w-full bg-secondary border rounded-md p-3 text-white placeholder:text-muted-foreground focus:outline-none focus:border-accent",
+                          "w-full bg-secondary border rounded-md p-3 text-base text-white placeholder:text-muted-foreground focus:outline-none focus:border-accent appearance-none",
                           errors.firstName ? "border-red-500" : "border-white/10"
                         )}
                       />
@@ -162,10 +163,11 @@ const LeadForm = () => {
                       <input
                         name="lastName"
                         placeholder="Last Name *"
+                        autoComplete="family-name"
                         value={formData.lastName}
                         onChange={handleChange}
                         className={cn(
-                          "w-full bg-secondary border rounded-md p-3 text-white placeholder:text-muted-foreground focus:outline-none focus:border-accent",
+                          "w-full bg-secondary border rounded-md p-3 text-base text-white placeholder:text-muted-foreground focus:outline-none focus:border-accent appearance-none",
                           errors.lastName ? "border-red-500" : "border-white/10"
                         )}
                       />
@@ -178,9 +180,10 @@ const LeadForm = () => {
                     name="email"
                     placeholder="Email Address"
                     type="email"
+                    autoComplete="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full bg-secondary border border-white/10 rounded-md p-3 text-white placeholder:text-muted-foreground focus:outline-none focus:border-accent"
+                    className="w-full bg-secondary border border-white/10 rounded-md p-3 text-base text-white placeholder:text-muted-foreground focus:outline-none focus:border-accent appearance-none"
                   />
                 </div>
 
@@ -189,10 +192,11 @@ const LeadForm = () => {
                     name="phone"
                     placeholder="Phone Number *"
                     type="tel"
+                    autoComplete="tel"
                     value={formData.phone}
                     onChange={handleChange}
                     className={cn(
-                      "w-full bg-secondary border rounded-md p-3 text-white placeholder:text-muted-foreground focus:outline-none focus:border-accent",
+                      "w-full bg-secondary border rounded-md p-3 text-base text-white placeholder:text-muted-foreground focus:outline-none focus:border-accent appearance-none",
                       errors.phone ? "border-red-500" : "border-white/10"
                     )}
                   />
@@ -257,7 +261,7 @@ const LeadForm = () => {
                 value={formData.details}
                 onChange={handleChange}
                 rows={5}
-                className="w-full bg-secondary border border-white/10 rounded-md p-3 text-white placeholder:text-muted-foreground focus:outline-none focus:border-accent resize-none"
+                className="w-full bg-secondary border border-white/10 rounded-md p-3 text-base text-white placeholder:text-muted-foreground focus:outline-none focus:border-accent resize-none appearance-none"
               />
             </motion.div>
           )}

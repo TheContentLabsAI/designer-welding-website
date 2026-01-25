@@ -9,8 +9,16 @@ const FAQ = () => {
       a: "Every project is unique, but our custom driveway gates typically start around $3,500 and go up depending on size, material complexity, and automation needs. We provide exact quotes after a free site assessment."
     },
     {
+      q: "What areas do you serve?",
+      a: "We proudly serve all of Orange County. From coastal cities to inland communities, we're based in Garden Grove and can typically schedule site visits within 48 hours anywhere in OC."
+    },
+    {
       q: "What is your typical lead time?",
       a: "Our standard turnaround from design approval to installation is 3-5 weeks. Rush services are available for urgent security needs."
+    },
+    {
+      q: "Can I see examples of your work before committing?",
+      a: "Absolutely! Check out our Portfolio page to see completed projects. We're also happy to provide references from recent clients in your area and can arrange site visits to view similar installations."
     },
     {
       q: "Do you offer warranties?",
@@ -47,6 +55,8 @@ const Item = ({ q, a }) => {
         <div className="border border-white/10 rounded-xl bg-zinc-900/30 overflow-hidden hover:border-zinc-700 transition-colors">
             <button 
                 onClick={() => setIsOpen(!isOpen)}
+                aria-expanded={isOpen}
+                aria-controls={`faq-answer-${q.replace(/\s+/g, '-').toLowerCase()}`}
                 className="flex items-center justify-between w-full p-6 text-left"
             >
                 <span className="text-white font-bold text-lg">{q}</span>
@@ -60,7 +70,10 @@ const Item = ({ q, a }) => {
                         exit={{ height: 0, opacity: 0 }}
                         className="overflow-hidden"
                     >
-                        <div className="p-6 pt-0 text-zinc-400 leading-relaxed border-t border-white/5 mt-2">
+                        <div 
+                            id={`faq-answer-${q.replace(/\s+/g, '-').toLowerCase()}`}
+                            className="p-6 pt-0 text-zinc-400 leading-relaxed border-t border-white/5 mt-2"
+                        >
                             {a}
                         </div>
                     </motion.div>

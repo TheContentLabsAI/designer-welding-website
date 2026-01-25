@@ -8,65 +8,64 @@ const ServicesPage = () => {
   return (
     <div className="bg-black min-h-screen pt-20">
       {/* Hero */}
-      <section className="py-12 bg-secondary/10 border-b border-white/5">
-        <div className="container mx-auto px-4 text-center">
+      {/* Simple Header - Straight to the point */}
+      <section className="pt-32 pb-12 bg-black border-b border-white/5 relative overflow-hidden">
+        {/* Subtle texture/gradient, not overwhelming */}
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
+
+        <div className="container mx-auto px-4 text-center relative z-10">
           <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-heading font-bold text-white uppercase mb-4"
+            className="text-3xl md:text-5xl font-heading font-bold text-white uppercase mb-4"
           >
-            Custom Metal <span className="text-accent">Fabrication</span>
+            Premium Metal Fabrication in <span className="text-accent">Orange County</span>
           </motion.h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Review our full list of services. If it's made of metal, we can build it.
+          <p className="text-lg text-zinc-400 max-w-2xl mx-auto mb-8">
+            Expert craftsmanship serving homeowners and businesses across all of Orange County.
           </p>
+
+          {/* Quick Service Areas/Trust - Compact */}
+          <div className="flex flex-wrap justify-center gap-4 text-sm text-zinc-500 font-medium uppercase tracking-wider">
+             <span className="flex items-center gap-2"><Check className="w-4 h-4 text-accent" /> Licensed & Bonded</span>
+             <span className="hidden md:inline text-zinc-800">•</span>
+             <span className="flex items-center gap-2"><Check className="w-4 h-4 text-accent" /> Structural & Ornamental</span>
+             <span className="hidden md:inline text-zinc-800">•</span>
+             <span className="flex items-center gap-2"><Check className="w-4 h-4 text-accent" /> Residential & Commercial</span>
+          </div>
         </div>
       </section>
 
-      {/* Intro / Value Prop */}
-      <section className="py-16 container mx-auto px-4 text-center">
-        <div className="max-w-4xl mx-auto bg-zinc-900/50 p-8 rounded-2xl border border-white/5">
-             <h2 className="text-2xl font-bold text-white mb-4">Designer Welding</h2>
-             <p className="text-muted-foreground mb-6">
-                We combine decades of technical skill with modern design to enhance property security and curb appeal. From custom driveway gates in Newport Coast to structural steel fabrication in Laguna Beach, we deliver unmatched quality and durability.
-             </p>
-             <Link to="/contact">
-                <Button variant="premium" className="px-8">Get a Free Estimate</Button>
-             </Link>
-        </div>
-      </section>
-
-      {/* FULL LIST GRID - "What We Build" */}
-      <section className="py-16 bg-black">
+      {/* Intro - Simplified */}
+      <section className="py-12 bg-zinc-950">
         <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-                <span className="text-accent uppercase tracking-widest text-sm font-bold">Every Category</span>
-                <h2 className="text-4xl font-heading font-bold text-white uppercase mt-2">What We Build</h2>
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {portfolioCategories.map((item, index) => (
+            {/* Quick Nav Grid - Compact */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+                {portfolioCategories.slice(0, 8).map((item, index) => (
                     <Link 
                         key={item} 
                         to={`/portfolio?category=${encodeURIComponent(item)}`}
-                        className="group block p-6 bg-zinc-900 border border-white/5 rounded-xl hover:border-accent/40 transition-all hover:bg-zinc-800"
+                        className="group p-4 bg-zinc-900/50 border border-white/5 hover:border-accent/40 rounded-lg transition-all hover:bg-zinc-800 flex items-center justify-between"
                     >
-                        <div className="flex items-center justify-between mb-4">
-                            <Hammer className="w-6 h-6 text-accent/50 group-hover:text-accent transition-colors" />
-                            <ArrowRight className="w-4 h-4 text-white/20 group-hover:translate-x-1 transition-transform" />
-                        </div>
-                        <h3 className="text-lg font-bold text-white group-hover:text-accent transition-colors uppercase">{item}</h3>
-                        <p className="text-sm text-muted-foreground mt-2">View Projects &rarr;</p>
+                        <span className="text-xs md:text-sm font-bold text-zinc-400 group-hover:text-white uppercase text-left">{item}</span>
+                        <ArrowRight className="w-3 h-3 text-white/10 group-hover:text-accent group-hover:translate-x-1 transition-all" />
                     </Link>
                 ))}
+            </div>
+            
+            <div className="text-center mt-12 mb-8">
+                 <Link to="/contact">
+                    <Button variant="premium" className="px-8 h-12">Get a Free Estimate</Button>
+                 </Link>
             </div>
         </div>
       </section>
 
       {/* Core Services Breakdown */}
-      <section className="py-24 container mx-auto px-4 space-y-32">
+      <section className="py-24 container mx-auto px-4 space-y-24 md:space-y-32">
         <div className="text-center mb-16">
-            <h2 className="text-4xl font-heading font-bold text-white uppercase mt-2">Detailed Services</h2>
+            <span className="text-accent uppercase tracking-widest text-sm font-bold block mb-2">Our Expertise</span>
+            <h2 className="text-4xl md:text-5xl font-heading font-bold text-white uppercase">Detailed Services</h2>
         </div>
 
         {services.map((service, index) => {
@@ -74,39 +73,53 @@ const ServicesPage = () => {
           const isEven = index % 2 === 0;
 
           return (
-             <div key={service.id} className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-24`}>
+             <div key={service.id} id={service.id} className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-8 md:gap-12 lg:gap-24 scroll-mt-24`}>
                {/* Content */}
-               <div className="flex-1 space-y-6">
-                 <div className="w-16 h-16 bg-accent/10 rounded-lg flex items-center justify-center text-accent mb-4">
-                   <Icon className="w-8 h-8" />
-                 </div>
-                 <h2 className="text-3xl font-heading font-bold text-white uppercase">{service.title}</h2>
-                 <p className="text-lg text-muted-foreground leading-relaxed">
-                   {service.fullDesc}
-                 </p>
+               <div className="flex-1 space-y-6 md:space-y-8 text-center lg:text-left">
                  
-                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-4">
+                 <div>
+                    <h2 className="text-3xl md:text-4xl font-heading font-black text-white uppercase mb-4 text-accent">{service.title}</h2>
+                    <p className="text-base md:text-lg text-zinc-400 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                    {service.fullDesc}
+                    </p>
+                 </div>
+                 
+                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 py-4 max-w-lg mx-auto lg:mx-0 text-left">
                    {service.features.map(feature => (
-                     <div key={feature} className="flex items-center gap-3 text-white/80">
-                       <Check className="w-5 h-5 text-accent" />
-                       <span>{feature}</span>
+                     <div key={feature} className="flex items-center gap-3 text-white/80 bg-white/5 px-4 py-3 rounded-lg border border-white/5">
+                       <Check className="w-4 h-4 text-accent shrink-0" />
+                       <span className="text-sm font-medium">{feature}</span>
                      </div>
                    ))}
                  </div>
 
                  <Link to="/contact">
-                    <Button variant="outline" className="mt-4 border-white/20 text-white hover:bg-white/5">
-                    Get a {service.title} Quote
+                    <Button variant="outline" className="mt-4 border-white/20 text-white hover:bg-accent hover:text-black uppercase tracking-wide font-bold h-12 px-8">
+                    Request Consultation
                     </Button>
                  </Link>
                </div>
 
-               {/* Visual Placeholder */}
-               <div className="flex-1 w-full aspect-[4/3] bg-zinc-900 rounded-xl border border-white/10 relative overflow-hidden group">
-                 <div className="absolute inset-0 flex items-center justify-center text-white/10 font-heading text-4xl uppercase font-bold">
-                   {service.title} Image
+               {/* Visual Placeholder / Image */}
+               <div className="flex-1 w-full aspect-[4/3] bg-zinc-900 rounded-2xl border border-white/10 relative overflow-hidden group shadow-2xl">
+                 <img 
+                    src={service.image} 
+                    alt={service.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                 />
+                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500"></div>
+                 
+                 {/* Icon Overlay */}
+                 <div className="absolute bottom-6 left-6 flex items-center gap-4">
+                    <div className="border border-white/20 p-3 rounded-full bg-black/60 backdrop-blur-md text-accent">
+                        <Icon className="w-6 h-6" />
+                    </div>
+                    <span className="font-heading text-xl uppercase font-bold tracking-widest text-white">{service.title}</span>
                  </div>
-                 <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                 
+                 {/* Decorative Corner Accents */}
+                 <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-accent/20 rounded-tl-2xl"></div>
+                 <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-accent/20 rounded-br-2xl"></div>
                </div>
              </div>
           )
