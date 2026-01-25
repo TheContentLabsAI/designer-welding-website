@@ -2,11 +2,11 @@ import { MapPin, Phone, Mail, Clock, ShieldCheck, PenTool, Hammer } from "lucide
 
 export const companyInfo = {
   name: "Designer Welding Inc.",
-  license: "Licensed & Bonded #939723",
-  address: "7566 Park Ave, Garden Grove, CA 92841",
+  license: "Fully Licensed & Bonded (#939723)",
+  address: "Garden Grove, CA 92841",
   phone: "(714) 580-6994",
   email: "designerwelding1@gmail.com",
-  tagline: "Family-owned and operated with over 25 years of industry experience.",
+  tagline: "Specialized expertise in Orange County’s premium iron works and metal fabrication industry.",
   businessHours: "Mon-Fri: 7:00 AM - 5:00 PM",
   socials: {
     facebook: "#",

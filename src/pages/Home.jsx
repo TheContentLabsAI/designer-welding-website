@@ -27,7 +27,7 @@ const Home = () => {
               <div className="pt-8 border-t border-white/5 mt-8">
                  <h4 className="text-white font-heading font-bold text-xl mb-4">Why Choose Us?</h4>
                  <ul className="space-y-4">
-                   {["Family Owned & Operated since 1998", "Master Certified Welders", "Premium Materials & Finishes", "Lifetime Structural Warranty"].map((item, i) => (
+                   {["Over 25 Years of Expertise", "Master Certified Welders", "Premium Materials & Finishes", "Lifetime Structural Warranty"].map((item, i) => (
                      <li key={i} className="flex items-center gap-3 text-muted-foreground">
                        <div className="w-1.5 h-1.5 bg-accent rounded-full"></div>
                        {item}

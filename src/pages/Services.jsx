@@ -28,8 +28,7 @@ const ServicesPage = () => {
         <div className="max-w-4xl mx-auto bg-zinc-900/50 p-8 rounded-2xl border border-white/5">
              <h2 className="text-2xl font-bold text-white mb-4">Designer Welding</h2>
              <p className="text-muted-foreground mb-6">
-                We handle every aspect of your project: design, engineering, and installation. 
-                From <strong className="text-white">motorized driveway gates</strong> to <strong className="text-white">security windows</strong>, we use premium materials and over 25 years of experience to get the job done right.
+                We combine decades of technical skill with modern design to enhance property security and curb appeal. From custom driveway gates in Newport Coast to structural steel fabrication in Laguna Beach, we deliver unmatched quality and durability.
              </p>
              <Link to="/contact">
                 <Button variant="premium" className="px-8">Get a Free Estimate</Button>

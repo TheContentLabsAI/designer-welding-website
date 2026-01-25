@@ -28,7 +28,7 @@ const AboutPage = () => {
             <h2 className="text-4xl font-heading font-bold text-white uppercase">Forged in Excellence</h2>
             <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
               <p>
-                Founded over 25 years ago, {companyInfo.name} began with a simple mission: to raise the standard of custom metal fabrication in Orange County.
+                Established in 2010, {companyInfo.name} brings over 25 years of specialized expertise to Orange County’s premium iron works and metal fabrication industry.
               </p>
               <p>
                 As a family-owned business, we take personal pride in every weld, grind, and finish. We don't just build gates and railings; we create architectural assets that enhance the security and value of your property.
