@@ -25,9 +25,24 @@ const MobileBottomBar = ({ setIsMobileMenuOpen, isMobileMenuOpen }) => {
            className="flex flex-col items-center gap-1 group w-full"
            onClick={(e) => {
              e.preventDefault();
-             // Scroll to hero form or open contact modal
-             window.scrollTo({ top: 0, behavior: 'smooth' });
-             document.querySelector('input[placeholder="First Name"]')?.focus();
+             
+             // Try to find the form on the current page
+             const form = document.querySelector('form');
+             const firstInput = document.querySelector('input[type="text"], input[placeholder*="Name"], input[placeholder*="name"]');
+             
+             if (form) {
+               // Scroll to form with offset for fixed header
+               const formTop = form.getBoundingClientRect().top + window.pageYOffset - 100;
+               window.scrollTo({ top: formTop, behavior: 'smooth' });
+               
+               // Focus first input after scroll completes
+               setTimeout(() => {
+                 firstInput?.focus();
+               }, 500);
+             } else {
+               // If no form on current page, navigate to home and scroll to form
+               window.location.href = '/#hero-form';
+             }
            }}
         >
            <div className="w-12 h-12 -mt-6 rounded-full bg-accent text-black flex items-center justify-center border-4 border-black shadow-[0_0_15px_rgba(197,160,89,0.3)] group-active:scale-95 transition-transform">

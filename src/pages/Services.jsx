@@ -9,7 +9,7 @@ const ServicesPage = () => {
     <div className="bg-black min-h-screen pt-20">
       {/* Hero */}
       {/* Simple Header - Straight to the point */}
-      <section className="pt-32 pb-12 bg-black border-b border-white/5 relative overflow-hidden">
+      <section className="pt-20 pb-8 bg-black border-b border-white/5 relative overflow-hidden">
         {/* Subtle texture/gradient, not overwhelming */}
         <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
 
@@ -37,7 +37,7 @@ const ServicesPage = () => {
       </section>
 
       {/* Intro - Simplified */}
-      <section className="py-12 bg-zinc-950">
+      <section className="py-8 bg-zinc-950">
         <div className="container mx-auto px-4">
             {/* Quick Nav Grid - Compact */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
@@ -53,7 +53,7 @@ const ServicesPage = () => {
                 ))}
             </div>
             
-            <div className="text-center mt-12 mb-8">
+            <div className="text-center mt-8 mb-6">
                  <Link to="/contact">
                     <Button variant="premium" className="px-8 h-12">Get a Free Estimate</Button>
                  </Link>
@@ -62,7 +62,7 @@ const ServicesPage = () => {
       </section>
 
       {/* Core Services Breakdown */}
-      <section className="py-24 container mx-auto px-4 space-y-24 md:space-y-32">
+      <section className="py-12 container mx-auto px-4 space-y-16 md:space-y-20">
         <div className="text-center mb-16">
             <span className="text-accent uppercase tracking-widest text-sm font-bold block mb-2">Our Expertise</span>
             <h2 className="text-4xl md:text-5xl font-heading font-bold text-white uppercase">Detailed Services</h2>

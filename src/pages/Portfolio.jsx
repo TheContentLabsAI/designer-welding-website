@@ -45,7 +45,7 @@ const PortfolioPage = () => {
 
   return (
     <div className="bg-black min-h-screen pt-20">
-      <section className="pt-32 pb-12 bg-black border-b border-white/5 relative overflow-hidden">
+      <section className="pt-20 pb-8 bg-black border-b border-white/5 relative overflow-hidden">
         {/* Subtle texture/gradient */}
         <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
 
