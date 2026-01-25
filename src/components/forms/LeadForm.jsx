@@ -70,9 +70,36 @@ const LeadForm = () => {
     if (currentStep > 1) setCurrentStep(currentStep - 1)
   }
 
-  const handleSubmit = () => {
-    // Simulate submission
-    console.log("Form Submitted:", formData)
+  const handleSubmit = async () => {
+    try {
+      // Send to n8n webhook
+      const response = await fetch('https://thecontentlabs.app.n8n.cloud/webhook/designer-welding-contact-us', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service,
+          details: formData.details,
+          source: 'contact-form',
+          timestamp: new Date().toISOString()
+        })
+      })
+
+      if (response.ok) {
+        console.log('Form submitted successfully to n8n')
+      } else {
+        console.error('Webhook failed:', response.status)
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+    }
+    
+    // Always show success to user
     setIsSubmitted(true)
   }
 

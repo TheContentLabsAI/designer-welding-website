@@ -72,10 +72,10 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="container relative z-10 px-4 h-full flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20 max-w-7xl mx-auto">
+      <div className="container relative z-10 px-4 h-full flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 max-w-[1400px] mx-auto">
         
-        {/* Left Column: Authority & Copy */}
-        <div className="w-full lg:w-1/2 relative z-20 flex flex-col justify-center text-center lg:text-left items-center lg:items-start">
+        {/* Left Column: Authority & Copy - Wider on desktop */}
+        <div className="w-full lg:w-[55%] relative z-20 flex flex-col justify-center text-center lg:text-left items-center lg:items-start">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -101,7 +101,7 @@ const Hero = () => {
               </div>
 
               {/* Headline - Larger and more prominent */}
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-black text-white uppercase tracking-wide leading-[1.1] mb-4 md:mb-5 drop-shadow-2xl text-center lg:text-left text-balance">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[6rem] xl:text-[7rem] font-heading font-black text-white uppercase tracking-wide leading-[1.05] mb-4 md:mb-5 drop-shadow-2xl text-center lg:text-left">
                 Mastery <br className="hidden md:block"/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-300 via-white to-zinc-400">
                   In Metal.
@@ -145,10 +145,10 @@ const Hero = () => {
             </motion.div>
         </div>
 
-        {/* Right Column: Hero Form (High Conversion) */}
+        {/* Right Column: Hero Form (High Conversion) - Smaller to give more space to content */}
         <motion.div 
           style={{ y: y1 }}
-          className="w-full md:w-1/2 lg:w-auto relative h-auto flex items-center justify-center lg:justify-end perspective-1000 mt-12 md:mt-0 z-30"
+          className="w-full md:w-1/2 lg:w-[40%] relative h-auto flex items-center justify-center lg:justify-end perspective-1000 mt-12 md:mt-0 z-30"
         >
            <HeroForm />
         </motion.div>

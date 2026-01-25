@@ -9,21 +9,34 @@ const HeroForm = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+    email: "",
     phone: "",
-    service: ""
+    projectType: ""
   })
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
 
-  const handleSubmit = (e) => {
+  const projectTypes = [
+    "Driveway Gate",
+    "Side Gate / Fence",
+    "Stair Railing",
+    "Balcony Railing",
+    "Security Door",
+    "Custom Metalwork",
+    "Not Sure Yet"
+  ]
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
     
     // Validate
     const newErrors = {}
     if (!formData.firstName.trim()) newErrors.firstName = true
     if (!formData.lastName.trim()) newErrors.lastName = true
-    if (!validatePhone(formData.phone)) newErrors.phone = "Invalid Phone Number"
+    if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Invalid Email"
+    if (!validatePhone(formData.phone)) newErrors.phone = "Invalid Phone"
+    if (!formData.projectType) newErrors.projectType = true
     
     if (Object.keys(newErrors).length > 0) {
         setErrors(newErrors)
@@ -31,11 +44,37 @@ const HeroForm = () => {
     }
 
     setIsSubmitting(true)
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false)
+    
+    try {
+      // Send to n8n webhook
+      const response = await fetch('https://thecontentlabs.app.n8n.cloud/webhook/designer-welding-hero', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          projectType: formData.projectType,
+          source: 'hero-form',
+          timestamp: new Date().toISOString()
+        })
+      })
+
+      if (response.ok) {
+        setIsSuccess(true)
+      } else {
+        throw new Error('Webhook failed')
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      // Still show success to user even if webhook fails
       setIsSuccess(true)
-    }, 1500)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   if (isSuccess) {
@@ -50,16 +89,16 @@ const HeroForm = () => {
             <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mb-4 text-accent border border-accent/30">
                 <Check className="w-8 h-8" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-2 font-heading">Request Recieved!</h3>
+            <h3 className="text-2xl font-bold text-white mb-2 font-heading">Request Received!</h3>
             <p className="text-muted-foreground text-sm mb-6">
-                Thanks {formData.firstName}! One of our experts will call you shortly at {formData.phone} to discuss your project.
+                Thanks {formData.firstName}! We'll contact you at {formData.phone} or {formData.email} to discuss your {formData.projectType} project.
             </p>
             <Button 
                 variant="outline" 
                 className="w-full border-white/10 hover:bg-white/5"
                 onClick={() => {
                     setIsSuccess(false)
-                    setFormData({ firstName: "", lastName: "", phone: "", service: "" })
+                    setFormData({ firstName: "", lastName: "", email: "", phone: "", projectType: "" })
                 }}
             >
                 Submit Another
@@ -87,7 +126,7 @@ const HeroForm = () => {
       </div>
 
       <div className="relative z-10 pt-2">
-        {/* Review Snippet (Hack #6: Testimonials with Intent) */}
+        {/* Review Snippet */}
         <div className="flex items-center justify-center gap-2 mb-3 md:mb-4 opacity-90">
             <div className="flex -space-x-2">
                 {[1,2,3].map(i => (
@@ -109,14 +148,17 @@ const HeroForm = () => {
            We meet to discuss your vision, assess the site & provide expert recommendations.
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4" id="get-quote">
+        <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4" id="hero-form">
             <div className="space-y-3 md:space-y-4">
+                {/* First & Last Name - Matching Contact Form */}
                 <div className="grid grid-cols-2 gap-3 md:gap-4">
                     <div className="group/input relative">
                         <input
                             required
                             type="text"
+                            name="firstName"
                             placeholder="First Name"
+                            autoComplete="given-name"
                             value={formData.firstName}
                             onChange={(e) => {
                                 setFormData({...formData, firstName: e.target.value})
@@ -132,7 +174,9 @@ const HeroForm = () => {
                         <input
                             required
                             type="text"
+                            name="lastName"
                             placeholder="Last Name"
+                            autoComplete="family-name"
                             value={formData.lastName}
                             onChange={(e) => {
                                 setFormData({...formData, lastName: e.target.value})
@@ -145,12 +189,36 @@ const HeroForm = () => {
                         />
                     </div>
                 </div>
+
+                {/* Email - Matching Contact Form */}
+                <div className="group/input relative">
+                    <input
+                        required
+                        type="email"
+                        name="email"
+                        placeholder="Email Address"
+                        autoComplete="email"
+                        value={formData.email}
+                        onChange={(e) => {
+                            setFormData({...formData, email: e.target.value})
+                            if(errors.email) setErrors({...errors, email: false})
+                        }}
+                        className={cn(
+                            "w-full h-12 md:h-14 bg-black/60 border rounded-lg px-4 text-white placeholder:text-white/40 focus:outline-none focus:border-accent focus:bg-black/80 transition-all font-medium text-base md:text-lg",
+                            errors.email ? "border-red-500" : "border-white/10"
+                        )}
+                    />
+                    {errors.email && <p className="absolute -bottom-5 left-0 text-red-500 text-xs font-bold">{errors.email}</p>}
+                </div>
                 
+                {/* Phone - Matching Contact Form */}
                 <div className="group/input relative">
                     <input
                         required
                         type="tel"
+                        name="phone"
                         placeholder="Phone Number"
+                        autoComplete="tel"
                         value={formData.phone}
                         onChange={(e) => {
                             setFormData({...formData, phone: e.target.value})
@@ -164,18 +232,25 @@ const HeroForm = () => {
                     {errors.phone && <p className="absolute -bottom-5 left-0 text-red-500 text-xs font-bold">{errors.phone}</p>}
                 </div>
 
+                {/* Project Type - Simplified Dropdown */}
                 <div className="group/input relative">
                     <select
                         required
-                        value={formData.service}
-                        onChange={(e) => setFormData({...formData, service: e.target.value})}
-                        className="w-full h-12 md:h-14 bg-black/60 border border-white/10 rounded-lg px-4 text-white/90 focus:outline-none focus:border-accent focus:bg-black/80 transition-all font-medium appearance-none cursor-pointer text-base md:text-lg"
+                        name="projectType"
+                        value={formData.projectType}
+                        onChange={(e) => {
+                            setFormData({...formData, projectType: e.target.value})
+                            if(errors.projectType) setErrors({...errors, projectType: false})
+                        }}
+                        className={cn(
+                            "w-full h-12 md:h-14 bg-black/60 border rounded-lg px-4 text-white/90 focus:outline-none focus:border-accent focus:bg-black/80 transition-all font-medium appearance-none cursor-pointer text-base md:text-lg",
+                            errors.projectType ? "border-red-500" : "border-white/10"
+                        )}
                     >
-                        <option value="" disabled className="text-gray-500">Select Project Type</option>
-                        {services.map(s => (
-                            <option key={s.id} value={s.title} className="bg-zinc-900 text-white">{s.title}</option>
+                        <option value="" disabled className="text-gray-500">What are you looking for?</option>
+                        {projectTypes.map(type => (
+                            <option key={type} value={type} className="bg-zinc-900 text-white">{type}</option>
                         ))}
-                        <option value="other" className="bg-zinc-900 text-white">Other / Custom</option>
                     </select>
                     <ChevronRight className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30 rotate-90 pointer-events-none" />
                 </div>
