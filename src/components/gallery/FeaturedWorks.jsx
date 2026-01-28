@@ -1,12 +1,19 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Link } from "react-router-dom"
-import { projects } from "@/data/siteData"
+import portfolioProjects from "@/data/portfolioProjects"
 import { X, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const FeaturedWorks = () => {
   const [selectedProject, setSelectedProject] = useState(null)
+
+  // Select featured projects - one from each main category
+  const featuredProjects = [
+    portfolioProjects.find(p => p.subcategory === 'drivewayGates'), // Gates
+    portfolioProjects.find(p => p.subcategory === 'stairRailings'), // Railings
+    portfolioProjects.find(p => p.subcategory === 'securityDoors'), // Security
+  ].filter(Boolean) // Remove any undefined
 
   return (
     <section className="py-24 bg-zinc-950 relative border-t border-white/5">
@@ -20,7 +27,7 @@ const FeaturedWorks = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.slice(0, 3).map((project, index) => (
+            {featuredProjects.slice(0, 3).map((project, index) => (
                 <motion.div
                     key={project.id}
                     layoutId={`project-${project.id}`}
@@ -44,7 +51,7 @@ const FeaturedWorks = () => {
                     className="group relative h-[400px] rounded-lg overflow-hidden cursor-pointer shadow-lg shadow-black/50"
                 >
                     <img 
-                        src={project.imageUrl} 
+                        src={project.image} 
                         alt={project.title} 
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100"
                     />
@@ -53,7 +60,7 @@ const FeaturedWorks = () => {
                     <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black to-transparent flex flex-col justify-end p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                         <span className="text-accent text-xs font-bold uppercase tracking-widest mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">{project.category}</span>
                         <h3 className="text-2xl font-bold text-white mb-2">{project.title}</h3>
-                        <p className="text-zinc-300 line-clamp-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">{project.description}</p>
+                        <p className="text-zinc-300 line-clamp-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Premium custom metalwork</p>
                     </div>
                 </motion.div>
             ))}
@@ -83,7 +90,7 @@ const FeaturedWorks = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2">
                            <div className="h-[300px] md:h-[500px] relative">
                                 <img 
-                                    src={selectedProject.imageUrl} 
+                                    src={selectedProject.image} 
                                     alt={selectedProject.title} 
                                     className="absolute inset-0 w-full h-full object-cover"
                                 />
@@ -93,7 +100,7 @@ const FeaturedWorks = () => {
                                 <span className="text-accent uppercase tracking-widest text-xs font-bold mb-4">{selectedProject.category}</span>
                                 <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-6 uppercase leading-none">{selectedProject.title}</h3>
                                 <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-                                    {selectedProject.description}
+                                    Premium custom metalwork crafted with precision and attention to detail.
                                 </p>
                                 <div className="flex gap-4">
                                     <Link to="/#hero-form" onClick={() => setSelectedProject(null)}>

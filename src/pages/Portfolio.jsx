@@ -1,17 +1,10 @@
 import { useState, useEffect, useRef } from "react"
 import { useSearchParams } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { portfolioStructure, portfolioCategories } from "@/data/siteData"
+import { portfolioStructure } from "@/data/siteData"
+import portfolioProjects from "@/data/portfolioProjects"
 import { cn } from "@/lib/utils"
 import { ChevronRight, Home } from "lucide-react"
-
-// Generate placeholder projects from old categories
-const allProjects = portfolioCategories.map((cat, i) => ({
-  id: i + 1,
-  title: `${cat} Project ${i + 1}`,
-  category: cat,
-  image: null // Placeholder
-}))
 
 const PortfolioPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -79,16 +72,14 @@ const PortfolioPage = () => {
 
   // Filter projects based on selection
   const filteredProjects = (() => {
-    if (selectedMainCategory === "all") return allProjects
+    if (selectedMainCategory === "all") return portfolioProjects
     
     if (selectedSubcategory === "all") {
       // Show all projects from this main category
-      const relevantSubcats = subcategories.flatMap(sub => sub.oldCategories)
-      return allProjects.filter(p => relevantSubcats.includes(p.category))
+      return portfolioProjects.filter(p => p.category === selectedMainCategory)
     } else {
       // Show projects from specific subcategory
-      const selectedSubData = currentCategoryData.subcategories[selectedSubcategory]
-      return allProjects.filter(p => selectedSubData.oldCategories.includes(p.category))
+      return portfolioProjects.filter(p => p.category === selectedMainCategory && p.subcategory === selectedSubcategory)
     }
   })()
 
@@ -256,15 +247,18 @@ const PortfolioPage = () => {
                 key={project.id}
                 className="group relative aspect-square bg-zinc-900 rounded-lg overflow-hidden border border-white/5 cursor-pointer active:scale-95 transition-transform"
               >
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-white/5 font-heading font-bold p-4 text-center uppercase">
-                  <span className="text-4xl">{project.category}</span>
-                  <span className="text-sm mt-2 text-white/20">Placeholder Image</span>
-                </div>
+                {/* Project Image */}
+                <img 
+                  src={project.image}
+                  alt={project.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
                 
                 {/* Hover Overlay */}
                 <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center">
                   <h3 className="text-xl font-heading font-bold text-white uppercase mb-2 translate-y-4 group-hover:translate-y-0 transition-transform">{project.title}</h3>
-                  <span className="text-accent text-xs uppercase tracking-widest translate-y-4 group-hover:translate-y-0 transition-transform delay-75">{project.category}</span>
+                  <span className="text-accent text-xs uppercase tracking-widest translate-y-4 group-hover:translate-y-0 transition-transform delay-75">{currentCategoryData?.title || "Portfolio"}</span>
                 </div>
               </motion.div>
             ))}
