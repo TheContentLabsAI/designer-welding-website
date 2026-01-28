@@ -9,7 +9,7 @@ const ServicesPage = () => {
     <div className="bg-black min-h-screen pt-20">
       {/* Hero */}
       {/* Simple Header - Straight to the point */}
-      <section className="pt-20 pb-8 bg-black border-b border-white/5 relative overflow-hidden">
+      <section className="pt-8 pb-6 bg-black border-b border-white/5 relative overflow-hidden">
         {/* Subtle texture/gradient, not overwhelming */}
         <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
 

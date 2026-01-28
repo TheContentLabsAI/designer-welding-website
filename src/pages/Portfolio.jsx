@@ -1,17 +1,9 @@
 import { useState, useEffect, useRef } from "react"
 import { useSearchParams } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { portfolioStructure, portfolioCategories, getCategoryMapping } from "@/data/siteData"
+import { portfolioStructure, portfolioCategories } from "@/data/siteData"
 import { cn } from "@/lib/utils"
-import { ChevronRight, Home, Grid, Shield, Fence, Sparkles } from "lucide-react"
-
-// Category icons mapping
-const categoryIcons = {
-  gates: Grid,
-  security: Shield,
-  railings: Fence,
-  specialty: Sparkles
-}
+import { ChevronRight, Home } from "lucide-react"
 
 // Generate placeholder projects from old categories
 const allProjects = portfolioCategories.map((cat, i) => ({
@@ -29,7 +21,6 @@ const PortfolioPage = () => {
   const [selectedMainCategory, setSelectedMainCategory] = useState(mainCategory)
   const [selectedSubcategory, setSelectedSubcategory] = useState(subcategory)
   const galleryRef = useRef(null)
-  const subcategoryScrollRef = useRef(null)
 
   // Update state when URL params change
   useEffect(() => {
@@ -101,14 +92,6 @@ const PortfolioPage = () => {
     }
   })()
 
-  // Calculate project counts
-  const getProjectCount = (categoryKey) => {
-    if (categoryKey === "all") return allProjects.length
-    const category = portfolioStructure[categoryKey]
-    const relevantSubcats = Object.values(category.subcategories).flatMap(sub => sub.oldCategories)
-    return allProjects.filter(p => relevantSubcats.includes(p.category)).length
-  }
-
   // Breadcrumb data
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -133,11 +116,11 @@ const PortfolioPage = () => {
   return (
     <div className="bg-black min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="pt-20 pb-8 bg-black border-b border-white/5 relative overflow-hidden">
+      <section className="pt-8 pb-6 bg-black border-b border-white/5 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
 
         <div className="container mx-auto px-4 relative z-10">
-          {/* Breadcrumbs - Compact on mobile */}
+          {/* Breadcrumbs */}
           <nav className="flex items-center gap-2 text-sm text-zinc-400 mb-6 overflow-x-auto no-scrollbar" aria-label="Breadcrumb">
             {breadcrumbs.map((crumb, index) => (
               <div key={index} className="flex items-center gap-2 shrink-0">
@@ -176,85 +159,40 @@ const PortfolioPage = () => {
         </div>
       </section>
 
-      {/* Main Category Navigation - Enhanced Mobile */}
+      {/* Main Category Navigation - Horizontal Scroll */}
       <section className="py-6 border-b border-white/5 sticky top-20 bg-black/95 backdrop-blur-md z-40">
         <div className="container mx-auto px-4">
-          {/* Desktop: Horizontal wrap */}
-          <div className="hidden md:flex flex-wrap gap-3 justify-center">
+          <div className="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 -mx-4 px-4">
             <button
               onClick={() => handleMainCategoryClick("all")}
               className={cn(
-                "px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all border min-h-[44px]",
+                "px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all border shrink-0 snap-start min-h-[44px]",
                 selectedMainCategory === "all"
                   ? "bg-accent text-black border-accent shadow-[0_0_20px_rgba(197,160,89,0.3)]"
-                  : "bg-zinc-900/50 text-muted-foreground border-white/10 hover:border-white/30 hover:text-white"
+                  : "bg-zinc-900/50 text-muted-foreground border-white/10 hover:border-white/30 hover:text-white active:scale-95"
               )}
             >
               All Works
             </button>
-            {Object.entries(portfolioStructure).map(([key, category]) => {
-              const Icon = categoryIcons[key]
-              return (
-                <button
-                  key={key}
-                  onClick={() => handleMainCategoryClick(key)}
-                  className={cn(
-                    "px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all border flex items-center gap-2 min-h-[44px]",
-                    selectedMainCategory === key
-                      ? "bg-accent text-black border-accent shadow-[0_0_20px_rgba(197,160,89,0.3)]"
-                      : "bg-zinc-900/50 text-muted-foreground border-white/10 hover:border-white/30 hover:text-white"
-                  )}
-                >
-                  {Icon && <Icon className="w-4 h-4" />}
-                  {category.title}
-                </button>
-              )
-            })}
-          </div>
-
-          {/* Mobile: 2-Column Grid with Icons */}
-          <div className="grid grid-cols-2 gap-3 md:hidden">
-            <button
-              onClick={() => handleMainCategoryClick("all")}
-              className={cn(
-                "col-span-2 px-4 py-4 rounded-xl text-sm font-bold uppercase tracking-wide transition-all border min-h-[56px]",
-                selectedMainCategory === "all"
-                  ? "bg-accent text-black border-accent shadow-[0_0_20px_rgba(197,160,89,0.3)]"
-                  : "bg-zinc-900/50 text-white border-white/10 active:scale-95"
-              )}
-            >
-              <div className="flex items-center justify-center gap-2">
-                <span>All Works</span>
-                <span className="text-xs opacity-70">({allProjects.length})</span>
-              </div>
-            </button>
-            {Object.entries(portfolioStructure).map(([key, category]) => {
-              const Icon = categoryIcons[key]
-              const count = getProjectCount(key)
-              return (
-                <button
-                  key={key}
-                  onClick={() => handleMainCategoryClick(key)}
-                  className={cn(
-                    "px-4 py-4 rounded-xl text-sm font-bold uppercase tracking-wide transition-all border min-h-[80px] active:scale-95",
-                    selectedMainCategory === key
-                      ? "bg-accent text-black border-accent shadow-[0_0_20px_rgba(197,160,89,0.3)]"
-                      : "bg-zinc-900/50 text-white border-white/10"
-                  )}
-                >
-                  <div className="flex flex-col items-center gap-2">
-                    {Icon && <Icon className="w-6 h-6" />}
-                    <span className="text-xs leading-tight">{category.title}</span>
-                    <span className="text-[10px] opacity-70">({count})</span>
-                  </div>
-                </button>
-              )
-            })}
+            {Object.entries(portfolioStructure).map(([key, category]) => (
+              <button
+                key={key}
+                onClick={() => handleMainCategoryClick(key)}
+                className={cn(
+                  "px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all border shrink-0 snap-start min-h-[44px]",
+                  selectedMainCategory === key
+                    ? "bg-accent text-black border-accent shadow-[0_0_20px_rgba(197,160,89,0.3)]"
+                    : "bg-zinc-900/50 text-muted-foreground border-white/10 hover:border-white/30 hover:text-white active:scale-95"
+                )}
+              >
+                {category.title}
+              </button>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Subcategory Navigation - Horizontal Scroll on Mobile */}
+      {/* Subcategory Navigation - Horizontal Scroll */}
       <AnimatePresence mode="wait">
         {currentCategoryData && (
           <motion.section
@@ -264,39 +202,8 @@ const PortfolioPage = () => {
             className="py-4 border-b border-white/5 bg-zinc-900/30"
           >
             <div className="container mx-auto px-4">
-              {/* Desktop: Center wrap */}
-              <div className="hidden md:flex flex-wrap gap-2 justify-center">
-                <button
-                  onClick={() => handleSubcategoryClick("all")}
-                  className={cn(
-                    "px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all min-h-[36px]",
-                    selectedSubcategory === "all"
-                      ? "bg-white/10 text-white border border-white/20"
-                      : "bg-transparent text-zinc-400 hover:text-white hover:bg-white/5"
-                  )}
-                >
-                  All {currentCategoryData.title}
-                </button>
-                {subcategories.map((sub) => (
-                  <button
-                    key={sub.key}
-                    onClick={() => handleSubcategoryClick(sub.key)}
-                    className={cn(
-                      "px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all min-h-[36px]",
-                      selectedSubcategory === sub.key
-                        ? "bg-white/10 text-white border border-white/20"
-                        : "bg-transparent text-zinc-400 hover:text-white hover:bg-white/5"
-                    )}
-                  >
-                    {sub.title}
-                  </button>
-                ))}
-              </div>
-
-              {/* Mobile: Horizontal Scroll with Snap */}
               <div 
-                ref={subcategoryScrollRef}
-                className="flex md:hidden gap-2 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 -mx-4 px-4"
+                className="flex gap-2 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 -mx-4 px-4"
               >
                 <button
                   onClick={() => handleSubcategoryClick("all")}
@@ -304,7 +211,7 @@ const PortfolioPage = () => {
                     "px-4 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all shrink-0 snap-start min-h-[44px]",
                     selectedSubcategory === "all"
                       ? "bg-white/10 text-white border border-white/20"
-                      : "bg-zinc-800/50 text-zinc-400 active:scale-95"
+                      : "bg-zinc-800/50 text-zinc-400 hover:text-white hover:bg-white/5 active:scale-95"
                   )}
                 >
                   All {currentCategoryData.title}
@@ -317,7 +224,7 @@ const PortfolioPage = () => {
                       "px-4 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all shrink-0 snap-start min-h-[44px]",
                       selectedSubcategory === sub.key
                         ? "bg-white/10 text-white border border-white/20"
-                        : "bg-zinc-800/50 text-zinc-400 active:scale-95"
+                        : "bg-zinc-800/50 text-zinc-400 hover:text-white hover:bg-white/5 active:scale-95"
                     )}
                   >
                     {sub.title}
