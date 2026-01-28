@@ -2,7 +2,7 @@ import { MapPin, Phone, Mail, Clock, ShieldCheck, PenTool, Hammer } from "lucide
 
 export const companyInfo = {
   name: "Designer Welding Inc.",
-  license: "Fully Licensed & Bonded (#939723)",
+  license: "Fully Licensed & Bonded (#1098805)",
   address: "Garden Grove, CA 92841",
   phone: "(714) 580-6994",
   email: "designerwelding1@gmail.com",
