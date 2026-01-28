@@ -25,10 +25,22 @@ const FeaturedWorks = () => {
                     key={project.id}
                     layoutId={`project-${project.id}`}
                     onClick={() => setSelectedProject(project)}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
+                    initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ 
+                      once: true,
+                      amount: 0.2,
+                      margin: "0px 0px -50px 0px"
+                    }}
+                    transition={{ 
+                      duration: 0.5,
+                      delay: index * 0.1,
+                      ease: [0.22, 1, 0.36, 1]
+                    }}
+                    whileHover={{ 
+                      scale: 1.02,
+                      transition: { duration: 0.3 }
+                    }}
                     className="group relative h-[400px] rounded-lg overflow-hidden cursor-pointer shadow-lg shadow-black/50"
                 >
                     <img 

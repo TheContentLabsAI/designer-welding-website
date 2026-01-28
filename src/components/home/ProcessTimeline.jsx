@@ -50,10 +50,18 @@ const ProcessTimeline = () => {
               return (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.2 }}
+                  initial={{ opacity: 0, y: 40, scale: 0.9 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ 
+                    once: true,
+                    amount: 0.4
+                  }}
+                  transition={{ 
+                    type: "spring",
+                    stiffness: 100,
+                    damping: 15,
+                    delay: index * 0.2
+                  }}
                   className="relative flex flex-col items-center text-center group"
                 >
                   <div className="w-20 h-20 bg-zinc-900 border-2 border-zinc-800 rounded-2xl flex items-center justify-center mb-6 relative z-10 group-hover:border-accent group-hover:bg-zinc-800 transition-all duration-300 shadow-xl shadow-black/50">

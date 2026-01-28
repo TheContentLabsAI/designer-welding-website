@@ -7,10 +7,13 @@ const Footer = () => {
     <footer className="bg-secondary pt-16 pb-8 border-t border-white/10">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-          {/* Brand */}
           <div className="space-y-4">
-            <Link to="/" className="text-2xl font-heading font-bold text-white tracking-widest uppercase">
-              Designer<span className="text-accent">Welding</span>
+            <Link to="/" className="inline-block">
+              <img 
+                src="/images/Logos/WhiteColor Long Logo.png" 
+                alt="Designer Welding" 
+                className="h-10 w-auto object-contain"
+              />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
               {companyInfo.tagline}

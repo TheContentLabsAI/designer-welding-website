@@ -39,8 +39,12 @@ const Navbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="text-2xl font-heading font-bold text-white tracking-widest uppercase relative z-50">
-          Designer<span className="text-accent">Welding</span>
+        <Link to="/" className="relative z-50 flex items-center">
+          <img 
+            src="/images/Logos/WhiteColor Long Logo.png" 
+            alt="Designer Welding" 
+            className="h-8 md:h-10 w-auto object-contain"
+          />
         </Link>
         
         {/* Desktop Nav */}

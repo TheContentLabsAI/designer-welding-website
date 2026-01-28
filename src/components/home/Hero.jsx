@@ -20,8 +20,8 @@ const Hero = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const y1 = useTransform(scrollY, [0, 500], [0, isMobile ? 0 : 200]);
-  const y2 = useTransform(scrollY, [0, 500], [0, isMobile ? 0 : -150]);
+  const y1 = useTransform(scrollY, [0, 500], [0, isMobile ? 0 : 200], { clamp: true });
+  const y2 = useTransform(scrollY, [0, 500], [0, isMobile ? 0 : -150], { clamp: true });
 
   return (
     <section className="relative min-h-screen w-full flex items-center overflow-hidden bg-black pt-24 pb-20 md:py-0">
@@ -48,24 +48,26 @@ const Hero = () => {
         {/* Animated Grain Overlay */}
         <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=')] grain-overlay z-10"></div>
 
-        {/* Simulated "Welding Sparks" - Intense & Realistic */}
-        <div className="absolute inset-0 overflow-hidden">
-            {[...Array(8)].map((_, i) => (
+        {/* Simulated "Welding Sparks" - Optimized for Performance */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {[...Array(4)].map((_, i) => (
             <motion.div
                 key={i}
                 initial={{ opacity: 0, x: "50vw", y: "50vh", scale: 0 }}
                 animate={{ 
-                opacity: [0, 1, 0], 
+                opacity: [0, 0.8, 0], 
                 x: ["50vw", `${Math.random() * 100}vw`],
                 y: ["50vh", `${Math.random() * 100}vh`],
-                scale: [0, Math.random() * 1.5, 0]
+                scale: [0, Math.random() * 1.2, 0]
                 }}
                 transition={{ 
-                duration: 1.5 + Math.random() * 2, 
+                duration: 2 + Math.random() * 2, 
                 repeat: Infinity, 
-                delay: Math.random() * 3,
-                ease: "easeOut"
+                delay: Math.random() * 4,
+                ease: "easeOut",
+                repeatDelay: 1
                 }}
+                style={{ willChange: "transform, opacity" }}
                 className="absolute w-1 h-1 bg-gradient-to-tr from-yellow-200 to-orange-500 rounded-full blur-[1px] shadow-[0_0_8px_2px_rgba(255,165,0,0.6)]"
             />
             ))}

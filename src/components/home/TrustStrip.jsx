@@ -1,4 +1,5 @@
 import { Shield, Award, Users, MapPin } from "lucide-react";
+import { motion } from "framer-motion";
 
 const TrustStrip = () => {
   const items = [
@@ -31,8 +32,16 @@ const TrustStrip = () => {
           {items.map((item, index) => {
             const Icon = item.icon;
             return (
-              <div 
+              <motion.div 
                 key={index} 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ 
+                  duration: 0.5,
+                  delay: index * 0.1,
+                  ease: [0.25, 0.1, 0.25, 1.0]
+                }}
                 className="flex flex-col items-center justify-center text-center group"
               >
                 <div className="mb-4 p-4 rounded-full bg-zinc-900 border border-white/5 group-hover:border-accent/40 group-hover:bg-accent/10 transition-all duration-300">
@@ -44,7 +53,7 @@ const TrustStrip = () => {
                 <p className="text-zinc-500 text-xs font-medium uppercase tracking-wider">
                   {item.sub}
                 </p>
-              </div>
+              </motion.div>
             );
           })}
         </div>

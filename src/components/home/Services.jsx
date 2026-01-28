@@ -1,4 +1,4 @@
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "framer-motion"
 import { ChevronRight, Quote } from "lucide-react"
 import { Link } from "react-router-dom"
 import { services } from "@/data/siteData"
@@ -41,6 +41,8 @@ const serviceBenefits = {
 }
 
 const Services = () => {
+  const shouldReduceMotion = useReducedMotion()
+  
   return (
     <section className="py-24 bg-zinc-950 relative">
       <div className="container mx-auto px-4">
@@ -63,10 +65,19 @@ const Services = () => {
             return (
               <motion.div
                 key={service.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                viewport={{ 
+                  once: true,
+                  amount: 0.3,
+                  margin: "0px 0px -100px 0px"
+                }}
+                transition={shouldReduceMotion ? { duration: 0 } : { 
+                  duration: 0.6,
+                  delay: index * 0.15,
+                  ease: [0.25, 0.1, 0.25, 1.0]
+                }}
+                style={{ willChange: "transform, opacity" }}
                 className="group relative bg-zinc-900 border border-white/5 rounded-xl p-8 hover:border-accent/30 transition-all duration-500 overflow-hidden"
               >
                 {/* Hover Glow */}

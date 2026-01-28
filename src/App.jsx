@@ -71,6 +71,15 @@ function App() {
                 <X className="w-8 h-8" />
               </button>
 
+              {/* Logo */}
+              <div className="flex justify-center mb-6">
+                <img 
+                  src="/images/Logos/WhiteColor Long Logo.png" 
+                  alt="Designer Welding" 
+                  className="h-10 w-auto object-contain"
+                />
+              </div>
+
               <Link
                 to="/portfolio"
                 className="flex items-center justify-between text-lg font-medium text-white hover:text-accent py-2 border-b border-white/5"

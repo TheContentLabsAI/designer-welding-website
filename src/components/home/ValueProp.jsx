@@ -1,10 +1,17 @@
 import { Check, X } from "lucide-react";
+import { motion } from "framer-motion";
 
 const ValueProp = () => {
   return (
     <section className="py-24 bg-black relative">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] }}
+        >
            <span className="text-red-500 uppercase tracking-widest text-sm font-bold mb-3 block">The Problem</span>
            <h2 className="text-3xl md:text-5xl font-heading font-black text-white uppercase mb-6">
              Most Iron Work <span className="text-red-600">Rusts & Fails</span> within 3 Years
@@ -12,11 +19,17 @@ const ValueProp = () => {
            <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
              Don't risk your home's security and curb appeal with "budget" welding. Cheap materials, poor finishes, and cut corners cost more in the long run.
            </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* The "Others" Card */}
-          <div className="bg-zinc-900/50 border border-red-900/20 p-8 rounded-2xl relative overflow-hidden">
+          <motion.div 
+            className="bg-zinc-900/50 border border-red-900/20 p-8 rounded-2xl relative overflow-hidden"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1.0] }}
+          >
              <div className="absolute top-4 right-4 text-red-500/5 font-black text-8xl -z-10 leading-none">?</div>
              <h3 className="text-2xl font-bold text-zinc-300 mb-6 uppercase flex items-center gap-3">
                 <span className="w-2 h-8 bg-red-800 rounded-full"></span>
@@ -35,10 +48,16 @@ const ValueProp = () => {
                     </li>
                 ))}
              </ul>
-          </div>
+          </motion.div>
 
           {/* The "Designer Welding" Card */}
-          <div className="bg-zinc-900 border border-white/10 p-8 rounded-2xl relative overflow-hidden shadow-2xl shadow-black/50 transform md:-translate-y-4">
+          <motion.div 
+            className="bg-zinc-900 border border-white/10 p-8 rounded-2xl relative overflow-hidden shadow-2xl shadow-black/50 transform md:-translate-y-4"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1.0] }}
+          >
              <div className="absolute top-0 inset-x-0 h-1 bg-accent"></div>
              {/* Glow effect */}
              <div className="absolute -top-24 -right-24 w-48 h-48 bg-accent/20 blur-3xl rounded-full pointer-events-none"></div>
@@ -60,7 +79,7 @@ const ValueProp = () => {
                     </li>
                 ))}
              </ul>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
