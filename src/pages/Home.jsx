@@ -168,7 +168,7 @@ const Home = () => {
                   </div>
                   <div>
                     <div className="text-accent font-bold text-lg mb-1">Licensed & Insured</div>
-                    <p className="text-zinc-400 text-sm">License #1098805</p>
+                    <p className="text-zinc-400 text-sm">CSLB: 1098805</p>
                   </div>
                   <div>
                     <div className="text-accent font-bold text-lg mb-1">Orange County</div>

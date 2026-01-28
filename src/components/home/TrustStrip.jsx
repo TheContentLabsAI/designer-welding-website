@@ -6,7 +6,7 @@ const TrustStrip = () => {
     {
       icon: Shield,
       text: "Licensed & Bonded",
-      sub: "#1098805 C-23"
+      sub: "CSLB: 1098805"
     },
     {
       icon: Users,

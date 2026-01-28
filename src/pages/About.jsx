@@ -62,7 +62,7 @@ const AboutPage = () => {
                 As a family-owned business, we take personal pride in every weld, grind, and finish. We don't just build gates and railings; we create architectural assets that enhance the security and value of your property.
               </p>
               <p>
-                Our license (<span className="font-mono text-accent">{companyInfo.license}</span>) is a promise of our professionalism and adherence to the highest safety and building standards.
+                Our license ({companyInfo.license}) is a promise of our professionalism and adherence to the highest safety and building standards.
               </p>
             </div>
             
