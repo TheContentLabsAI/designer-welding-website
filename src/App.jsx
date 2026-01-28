@@ -8,10 +8,10 @@ import PortfolioPage from "@/pages/Portfolio"
 import AboutPage from "@/pages/About"
 import ContactPage from "@/pages/Contact"
 import { AnimatePresence, motion } from "framer-motion"
-import { X, ChevronDown, Phone } from "lucide-react"
+import { X, ChevronDown, Phone, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { companyInfo, portfolioCategories } from "@/data/siteData"
+import { companyInfo, portfolioStructure } from "@/data/siteData"
 
 // ScrollToTop component
 const ScrollToTop = () => {
@@ -80,13 +80,80 @@ function App() {
                 />
               </div>
 
-              <Link
-                to="/portfolio"
-                className="flex items-center justify-between text-lg font-medium text-white hover:text-accent py-2 border-b border-white/5"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                 Our Works
-              </Link>
+              {/* Our Works - Expandable with Categories */}
+              <div className="border-b border-white/5">
+                <button
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="w-full flex items-center justify-between text-lg font-medium text-white hover:text-accent py-2"
+                >
+                  Our Works
+                  <ChevronDown className={cn(
+                    "w-5 h-5 transition-transform",
+                    isDropdownOpen && "rotate-180"
+                  )} />
+                </button>
+
+                {/* Mobile Dropdown Categories */}
+                <AnimatePresence>
+                  {isDropdownOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pl-4 pb-3 space-y-3">
+                        {/* View All */}
+                        <Link
+                          to="/portfolio"
+                          className="block text-sm font-semibold text-accent py-2"
+                          onClick={() => {
+                            setIsMobileMenuOpen(false)
+                            setIsDropdownOpen(false)
+                          }}
+                        >
+                          View All Works →
+                        </Link>
+
+                        {/* Main Categories with Subcategories */}
+                        {Object.entries(portfolioStructure).map(([key, category]) => (
+                          <div key={key} className="space-y-2">
+                            {/* Main Category */}
+                            <Link
+                              to={`/portfolio?category=${key}`}
+                              className="block text-sm font-bold text-white uppercase tracking-wide py-1"
+                              onClick={() => {
+                                setIsMobileMenuOpen(false)
+                                setIsDropdownOpen(false)
+                              }}
+                            >
+                              {category.title}
+                            </Link>
+                            
+                            {/* Subcategories */}
+                            <div className="space-y-1 pl-3">
+                              {Object.entries(category.subcategories).map(([subKey, subcategory]) => (
+                                <Link
+                                  key={subKey}
+                                  to={`/portfolio?category=${key}&type=${subKey}`}
+                                  className="flex items-center gap-1 text-xs text-zinc-400 hover:text-accent py-1"
+                                  onClick={() => {
+                                    setIsMobileMenuOpen(false)
+                                    setIsDropdownOpen(false)
+                                  }}
+                                >
+                                  <ChevronRight className="w-3 h-3" />
+                                  {subcategory.title}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
               <Link
                 to="/services"

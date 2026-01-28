@@ -6,7 +6,7 @@ export const companyInfo = {
   address: "Garden Grove, CA 92841",
   phone: "(714) 580-6994",
   email: "designerwelding1@gmail.com",
-  tagline: "Specialized expertise in Orange County’s premium iron works and metal fabrication industry.",
+  tagline: "Specialized expertise in Orange County's premium iron works and metal fabrication industry.",
   businessHours: "Mon-Fri: 7:00 AM - 5:00 PM",
   socials: {
     facebook: "#",
@@ -53,6 +53,7 @@ export const services = [
   }
 ];
 
+// Legacy flat array for backward compatibility
 export const portfolioCategories = [
   "Balconies",
   "Commercial Gates",
@@ -71,6 +72,183 @@ export const portfolioCategories = [
   "Swimming Pool Fences Cover",
   "Wood Gates"
 ];
+
+// Hierarchical portfolio structure for improved SEO and UX
+export const portfolioStructure = {
+  gates: {
+    title: "Gates",
+    slug: "gates",
+    description: "Custom metal gates for residential and commercial properties in Orange County",
+    seoTitle: "Custom Metal Gates | Driveway, Entry & Commercial Gates",
+    seoDescription: "Premium custom metal gates including driveway gates, entry gates, side gates, and commercial gate solutions. Licensed & bonded in Orange County.",
+    subcategories: {
+      drivewayGates: {
+        title: "Driveway Gates",
+        slug: "driveway-gates",
+        description: "Automated and manual driveway entry gates with custom designs",
+        seoKeywords: ["driveway gates orange county", "automatic gate installation", "custom driveway gates"],
+        oldCategories: ["Double Gates", "Double Gates with Design"]
+      },
+      entryGates: {
+        title: "Entry Gates",
+        slug: "entry-gates",
+        description: "Elegant pedestrian entry gates for homes and businesses",
+        seoKeywords: ["entry gates", "pedestrian gates", "front entry gates"],
+        oldCategories: ["Entrance Doors"]
+      },
+      sideGates: {
+        title: "Side Gates",
+        slug: "side-gates",
+        description: "Secure side yard access gates with custom designs",
+        seoKeywords: ["side gates", "yard gates", "custom side gates"],
+        oldCategories: ["Side Gates", "Side Gates With Design"]
+      },
+      gardenGates: {
+        title: "Garden Gates",
+        slug: "garden-gates",
+        description: "Decorative garden and backyard gates",
+        seoKeywords: ["garden gates", "backyard gates", "decorative gates"],
+        oldCategories: ["Wood Gates"]
+      },
+      commercialGates: {
+        title: "Commercial Gates",
+        slug: "commercial-gates",
+        description: "Heavy-duty commercial and industrial gate solutions",
+        seoKeywords: ["commercial gates", "industrial gates", "business gates"],
+        oldCategories: ["Commercial Gates", "Sliding Gates"]
+      }
+    }
+  },
+  security: {
+    title: "Security",
+    slug: "security",
+    description: "Premium security solutions including doors, windows, and gates",
+    seoTitle: "Security Doors & Windows | Orange County Security Solutions",
+    seoDescription: "Custom security doors, windows, and gates for residential and commercial properties. Maximum protection with elegant design.",
+    subcategories: {
+      securityDoors: {
+        title: "Security Doors",
+        slug: "security-doors",
+        description: "Heavy-duty security doors with modern designs",
+        seoKeywords: ["security doors", "iron security doors", "modern security doors"],
+        oldCategories: ["Security Doors", "Modern Doors"]
+      },
+      securityWindows: {
+        title: "Security Windows",
+        slug: "security-windows",
+        description: "Protective window guards and security screens",
+        seoKeywords: ["security windows", "window guards", "security screens"],
+        oldCategories: ["Security Windows"]
+      },
+      securityGates: {
+        title: "Security Gates",
+        slug: "security-gates",
+        description: "High-security gates for maximum protection",
+        seoKeywords: ["security gates", "high security gates", "protective gates"],
+        oldCategories: []
+      }
+    }
+  },
+  railings: {
+    title: "Railings",
+    slug: "railings",
+    description: "Custom railings for stairs, balconies, decks, and porches",
+    seoTitle: "Custom Railings | Stair, Balcony & Deck Railings Orange County",
+    seoDescription: "Premium custom railings for residential and commercial properties. Stair railings, balcony railings, and more.",
+    subcategories: {
+      stairRailings: {
+        title: "Stair Railings",
+        slug: "stair-railings",
+        description: "Interior and exterior stair railings with custom designs",
+        seoKeywords: ["stair railings", "custom stair railings", "interior railings"],
+        oldCategories: ["Stair Railing"]
+      },
+      balconyRailings: {
+        title: "Balcony Railings",
+        slug: "balcony-railings",
+        description: "Elegant balcony railings for safety and style",
+        seoKeywords: ["balcony railings", "balcony safety rails", "custom balcony railings"],
+        oldCategories: ["Balconies"]
+      },
+      deckRailings: {
+        title: "Deck Railings",
+        slug: "deck-railings",
+        description: "Durable deck railings for outdoor spaces",
+        seoKeywords: ["deck railings", "outdoor railings", "patio railings"],
+        oldCategories: []
+      },
+      porchRailings: {
+        title: "Porch Railings",
+        slug: "porch-railings",
+        description: "Classic porch railings for front and back porches",
+        seoKeywords: ["porch railings", "front porch railings", "custom porch rails"],
+        oldCategories: []
+      }
+    }
+  },
+  specialty: {
+    title: "Specialty",
+    slug: "specialty",
+    description: "Specialized metalwork including pool fencing, custom ironwork, and barriers",
+    seoTitle: "Specialty Metalwork | Pool Fencing & Custom Ironwork",
+    seoDescription: "Specialized metal fabrication including pool fencing, custom ironwork, and decorative barriers for Orange County properties.",
+    subcategories: {
+      poolFencing: {
+        title: "Pool Fencing",
+        slug: "pool-fencing",
+        description: "Code-compliant pool fencing and safety barriers",
+        seoKeywords: ["pool fencing", "pool safety fence", "swimming pool fence"],
+        oldCategories: ["Swimming Pool Fences Cover", "Sliding Patio"]
+      },
+      customIronwork: {
+        title: "Custom Ironwork",
+        slug: "custom-ironwork",
+        description: "Artistic custom ironwork and decorative pieces",
+        seoKeywords: ["custom ironwork", "decorative ironwork", "artistic metalwork"],
+        oldCategories: []
+      },
+      fencingBarriers: {
+        title: "Fencing & Barriers",
+        slug: "fencing-and-barriers",
+        description: "Perimeter fencing and security barriers",
+        seoKeywords: ["metal fencing", "security barriers", "perimeter fencing"],
+        oldCategories: ["Fences"]
+      }
+    }
+  }
+};
+
+// Helper function to get all subcategories as a flat array
+export const getAllSubcategories = () => {
+  const subcategories = [];
+  Object.values(portfolioStructure).forEach(category => {
+    Object.values(category.subcategories).forEach(subcategory => {
+      subcategories.push({
+        ...subcategory,
+        parentCategory: category.title,
+        parentSlug: category.slug
+      });
+    });
+  });
+  return subcategories;
+};
+
+// Helper function to map old category names to new structure
+export const getCategoryMapping = (oldCategoryName) => {
+  for (const [categoryKey, category] of Object.entries(portfolioStructure)) {
+    for (const [subKey, subcategory] of Object.entries(category.subcategories)) {
+      if (subcategory.oldCategories.includes(oldCategoryName)) {
+        return {
+          mainCategory: categoryKey,
+          subcategory: subKey,
+          mainCategoryTitle: category.title,
+          subcategoryTitle: subcategory.title
+        };
+      }
+    }
+  }
+  return null;
+};
 
 export const testimonials = [
   {

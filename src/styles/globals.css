@@ -63,6 +63,19 @@
     scrollbar-width: none;
   }
   
+  /* Smooth scroll behavior */
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+  
+  /* Scroll snap utilities */
+  .snap-x {
+    scroll-snap-type: x mandatory;
+  }
+  .snap-start {
+    scroll-snap-align: start;
+  }
+  
   @keyframes grain {
     0%, 100% { transform: translate(0, 0); }
     10% { transform: translate(-5%, -10%); }

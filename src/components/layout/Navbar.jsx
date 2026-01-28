@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
-import { Menu, X, Phone, ChevronDown } from "lucide-react"
+import { Menu, X, Phone, ChevronDown, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
-import { companyInfo, portfolioCategories } from "@/data/siteData"
+import { companyInfo, portfolioStructure } from "@/data/siteData"
 
 const Navbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -71,7 +71,7 @@ const Navbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                     <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
                   </Link>
 
-                  {/* Desktop Dropdown */}
+                  {/* Desktop Dropdown - Hierarchical */}
                   <AnimatePresence>
                     {isDropdownOpen && (
                       <motion.div
@@ -80,18 +80,47 @@ const Navbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                         exit={{ opacity: 0, y: 10 }}
                         className="absolute left-0 top-full pt-2"
                       >
-                         <div className="bg-zinc-950 border border-white/10 rounded-lg shadow-xl w-64 max-h-[70vh] overflow-y-auto">
-                            <div className="p-2 grid gap-1">
-                              {portfolioCategories.map((cat) => (
-                                <Link
-                                  key={cat}
-                                  to={`/portfolio?category=${encodeURIComponent(cat)}`}
-                                  className="block px-4 py-2 text-sm text-muted-foreground hover:bg-white/5 hover:text-accent rounded-md transition-colors text-left"
-                                  onClick={() => setIsDropdownOpen(false)}
-                                >
-                                  {cat}
-                                </Link>
-                              ))}
+                         <div className="bg-zinc-950 border border-white/10 rounded-lg shadow-xl w-[600px] max-h-[70vh] overflow-y-auto">
+                            <div className="p-4">
+                              {/* View All Link */}
+                              <Link
+                                to="/portfolio"
+                                className="block px-4 py-3 text-sm font-semibold text-accent hover:bg-white/5 rounded-md transition-colors mb-3 border-b border-white/5"
+                                onClick={() => setIsDropdownOpen(false)}
+                              >
+                                View All Works →
+                              </Link>
+
+                              {/* Main Categories Grid */}
+                              <div className="grid grid-cols-2 gap-4">
+                                {Object.entries(portfolioStructure).map(([key, category]) => (
+                                  <div key={key} className="space-y-2">
+                                    {/* Main Category Header */}
+                                    <Link
+                                      to={`/portfolio?category=${key}`}
+                                      className="block px-3 py-2 text-sm font-bold text-white hover:text-accent transition-colors uppercase tracking-wider"
+                                      onClick={() => setIsDropdownOpen(false)}
+                                    >
+                                      {category.title}
+                                    </Link>
+                                    
+                                    {/* Subcategories */}
+                                    <div className="space-y-1 pl-2">
+                                      {Object.entries(category.subcategories).map(([subKey, subcategory]) => (
+                                        <Link
+                                          key={subKey}
+                                          to={`/portfolio?category=${key}&type=${subKey}`}
+                                          className="flex items-center gap-1 px-3 py-1.5 text-xs text-muted-foreground hover:bg-white/5 hover:text-accent rounded transition-colors"
+                                          onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                          <ChevronRight className="w-3 h-3" />
+                                          {subcategory.title}
+                                        </Link>
+                                      ))}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
                             </div>
                          </div>
                       </motion.div>

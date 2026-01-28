@@ -1,11 +1,19 @@
 import { useState, useEffect, useRef } from "react"
 import { useSearchParams } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { portfolioCategories } from "@/data/siteData"
+import { portfolioStructure, portfolioCategories, getCategoryMapping } from "@/data/siteData"
 import { cn } from "@/lib/utils"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronRight, Home, Grid, Shield, Fence, Sparkles } from "lucide-react"
 
-// Generate placeholder projects derived from categories
+// Category icons mapping
+const categoryIcons = {
+  gates: Grid,
+  security: Shield,
+  railings: Fence,
+  specialty: Sparkles
+}
+
+// Generate placeholder projects from old categories
 const allProjects = portfolioCategories.map((cat, i) => ({
   id: i + 1,
   title: `${cat} Project ${i + 1}`,
@@ -15,103 +23,323 @@ const allProjects = portfolioCategories.map((cat, i) => ({
 
 const PortfolioPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const filter = searchParams.get("category") || "All"
-  const scrollContainerRef = useRef(null)
-
-  const setFilter = (category) => {
-    if (category === "All") {
-      setSearchParams({})
-    } else {
-      setSearchParams({ category })
-    }
-  }
-
-  const scroll = (direction) => {
-    if (scrollContainerRef.current) {
-        const scrollAmount = 300;
-        scrollContainerRef.current.scrollBy({
-            left: direction === 'left' ? -scrollAmount : scrollAmount,
-            behavior: 'smooth'
-        });
-    }
-  }
+  const mainCategory = searchParams.get("category") || "all"
+  const subcategory = searchParams.get("type") || "all"
   
-  // Show all categories with wrapping
-  const mainFilters = ["All", ...portfolioCategories]
+  const [selectedMainCategory, setSelectedMainCategory] = useState(mainCategory)
+  const [selectedSubcategory, setSelectedSubcategory] = useState(subcategory)
+  const galleryRef = useRef(null)
+  const subcategoryScrollRef = useRef(null)
 
-  const filteredProjects = filter === "All" 
-    ? allProjects 
-    : allProjects.filter(p => p.category === filter)
+  // Update state when URL params change
+  useEffect(() => {
+    setSelectedMainCategory(mainCategory)
+    setSelectedSubcategory(subcategory)
+  }, [mainCategory, subcategory])
+
+  const handleMainCategoryClick = (categorySlug) => {
+    if (categorySlug === "all") {
+      setSearchParams({})
+      setSelectedMainCategory("all")
+      setSelectedSubcategory("all")
+    } else {
+      setSearchParams({ category: categorySlug })
+      setSelectedMainCategory(categorySlug)
+      setSelectedSubcategory("all")
+    }
+    
+    // Auto-scroll to gallery on mobile
+    setTimeout(() => {
+      if (galleryRef.current && window.innerWidth < 768) {
+        galleryRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }, 300)
+  }
+
+  const handleSubcategoryClick = (subSlug) => {
+    if (subSlug === "all") {
+      setSearchParams({ category: selectedMainCategory })
+      setSelectedSubcategory("all")
+    } else {
+      setSearchParams({ category: selectedMainCategory, type: subSlug })
+      setSelectedSubcategory(subSlug)
+    }
+    
+    // Auto-scroll to gallery on mobile
+    setTimeout(() => {
+      if (galleryRef.current && window.innerWidth < 768) {
+        galleryRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }, 300)
+  }
+
+  // Get current category data
+  const currentCategoryData = selectedMainCategory !== "all" 
+    ? portfolioStructure[selectedMainCategory] 
+    : null
+
+  // Get subcategories for current main category
+  const subcategories = currentCategoryData 
+    ? Object.entries(currentCategoryData.subcategories).map(([key, data]) => ({
+        key,
+        ...data
+      }))
+    : []
+
+  // Filter projects based on selection
+  const filteredProjects = (() => {
+    if (selectedMainCategory === "all") return allProjects
+    
+    if (selectedSubcategory === "all") {
+      // Show all projects from this main category
+      const relevantSubcats = subcategories.flatMap(sub => sub.oldCategories)
+      return allProjects.filter(p => relevantSubcats.includes(p.category))
+    } else {
+      // Show projects from specific subcategory
+      const selectedSubData = currentCategoryData.subcategories[selectedSubcategory]
+      return allProjects.filter(p => selectedSubData.oldCategories.includes(p.category))
+    }
+  })()
+
+  // Calculate project counts
+  const getProjectCount = (categoryKey) => {
+    if (categoryKey === "all") return allProjects.length
+    const category = portfolioStructure[categoryKey]
+    const relevantSubcats = Object.values(category.subcategories).flatMap(sub => sub.oldCategories)
+    return allProjects.filter(p => relevantSubcats.includes(p.category)).length
+  }
+
+  // Breadcrumb data
+  const breadcrumbs = [
+    { label: "Home", href: "/" },
+    { label: "Our Works", href: "/portfolio" }
+  ]
+  
+  if (currentCategoryData) {
+    breadcrumbs.push({ 
+      label: currentCategoryData.title, 
+      href: `/portfolio?category=${selectedMainCategory}` 
+    })
+    
+    if (selectedSubcategory !== "all") {
+      const subData = currentCategoryData.subcategories[selectedSubcategory]
+      breadcrumbs.push({ 
+        label: subData.title, 
+        href: `/portfolio?category=${selectedMainCategory}&type=${selectedSubcategory}` 
+      })
+    }
+  }
 
   return (
     <div className="bg-black min-h-screen pt-20">
+      {/* Hero Section */}
       <section className="pt-20 pb-8 bg-black border-b border-white/5 relative overflow-hidden">
-        {/* Subtle texture/gradient */}
         <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
 
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="text-3xl md:text-5xl font-heading font-bold text-white uppercase mb-4">
-            Premium Metalwork <span className="text-accent">Gallery</span>
-          </h1>
-          <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
-            Showcasing custom fabrications for homes and businesses across Orange County.
-          </p>
+        <div className="container mx-auto px-4 relative z-10">
+          {/* Breadcrumbs - Compact on mobile */}
+          <nav className="flex items-center gap-2 text-sm text-zinc-400 mb-6 overflow-x-auto no-scrollbar" aria-label="Breadcrumb">
+            {breadcrumbs.map((crumb, index) => (
+              <div key={index} className="flex items-center gap-2 shrink-0">
+                {index === 0 && <Home className="w-4 h-4" />}
+                {index > 0 && <ChevronRight className="w-4 h-4" />}
+                {index === breadcrumbs.length - 1 ? (
+                  <span className="text-accent font-medium">{crumb.label}</span>
+                ) : (
+                  <a href={crumb.href} className="hover:text-white transition-colors">
+                    {crumb.label}
+                  </a>
+                )}
+              </div>
+            ))}
+          </nav>
+
+          {/* Title & Description */}
+          <div className="text-center">
+            <h1 className="text-3xl md:text-5xl font-heading font-bold text-white uppercase mb-4">
+              {currentCategoryData ? (
+                <>
+                  {currentCategoryData.title} <span className="text-accent">Gallery</span>
+                </>
+              ) : (
+                <>
+                  Premium Metalwork <span className="text-accent">Gallery</span>
+                </>
+              )}
+            </h1>
+            <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
+              {currentCategoryData 
+                ? currentCategoryData.description
+                : "Showcasing custom fabrications for homes and businesses across Orange County."}
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Filters */}
-      {/* Filters */}
-      <section className="py-4 border-b border-white/5 sticky top-20 bg-black/80 backdrop-blur-md z-40">
-        <div className="container mx-auto px-4 relative flex items-center">
-          
-          {/* Scroll Buttons - Visible on Desktop */}
-          <button 
-            onClick={() => scroll('left')}
-            className="hidden md:flex absolute left-4 z-20 w-8 h-8 items-center justify-center rounded-full bg-black/50 backdrop-blur border border-white/10 text-white/70 hover:text-white hover:bg-black transition-all -translate-x-3 opacity-0 group-hover:opacity-100 disabled:opacity-0"
-            aria-label="Scroll left"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-
-          {/* Softened Gradient Masks */}
-          <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-black/60 to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-black/60 to-transparent z-10 pointer-events-none"></div>
-
-          <div 
-             ref={scrollContainerRef}
-             className="flex flex-nowrap gap-3 overflow-x-auto no-scrollbar pb-2 px-2 md:justify-start scroll-smooth w-full touch-pan-x"
-          >
-            {mainFilters.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={cn(
-                  "whitespace-nowrap px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all border shrink-0 min-h-[44px] touch-manipulation",
-                  filter === cat 
-                    ? "bg-accent text-black border-accent shadow-[0_0_20px_rgba(197,160,89,0.3)] scale-105" 
-                    : "bg-zinc-900/50 text-muted-foreground border-white/10 hover:border-white/30 hover:text-white"
-                )}
-              >
-                {cat}
-              </button>
-            ))}
+      {/* Main Category Navigation - Enhanced Mobile */}
+      <section className="py-6 border-b border-white/5 sticky top-20 bg-black/95 backdrop-blur-md z-40">
+        <div className="container mx-auto px-4">
+          {/* Desktop: Horizontal wrap */}
+          <div className="hidden md:flex flex-wrap gap-3 justify-center">
+            <button
+              onClick={() => handleMainCategoryClick("all")}
+              className={cn(
+                "px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all border min-h-[44px]",
+                selectedMainCategory === "all"
+                  ? "bg-accent text-black border-accent shadow-[0_0_20px_rgba(197,160,89,0.3)]"
+                  : "bg-zinc-900/50 text-muted-foreground border-white/10 hover:border-white/30 hover:text-white"
+              )}
+            >
+              All Works
+            </button>
+            {Object.entries(portfolioStructure).map(([key, category]) => {
+              const Icon = categoryIcons[key]
+              return (
+                <button
+                  key={key}
+                  onClick={() => handleMainCategoryClick(key)}
+                  className={cn(
+                    "px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all border flex items-center gap-2 min-h-[44px]",
+                    selectedMainCategory === key
+                      ? "bg-accent text-black border-accent shadow-[0_0_20px_rgba(197,160,89,0.3)]"
+                      : "bg-zinc-900/50 text-muted-foreground border-white/10 hover:border-white/30 hover:text-white"
+                  )}
+                >
+                  {Icon && <Icon className="w-4 h-4" />}
+                  {category.title}
+                </button>
+              )
+            })}
           </div>
 
-          <button 
-            onClick={() => scroll('right')}
-            className="hidden md:flex absolute right-4 z-20 w-8 h-8 items-center justify-center rounded-full bg-black/50 backdrop-blur border border-white/10 text-white/70 hover:text-white hover:bg-black transition-all translate-x-3 opacity-0 group-hover:opacity-100"
-            aria-label="Scroll right"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
-
+          {/* Mobile: 2-Column Grid with Icons */}
+          <div className="grid grid-cols-2 gap-3 md:hidden">
+            <button
+              onClick={() => handleMainCategoryClick("all")}
+              className={cn(
+                "col-span-2 px-4 py-4 rounded-xl text-sm font-bold uppercase tracking-wide transition-all border min-h-[56px]",
+                selectedMainCategory === "all"
+                  ? "bg-accent text-black border-accent shadow-[0_0_20px_rgba(197,160,89,0.3)]"
+                  : "bg-zinc-900/50 text-white border-white/10 active:scale-95"
+              )}
+            >
+              <div className="flex items-center justify-center gap-2">
+                <span>All Works</span>
+                <span className="text-xs opacity-70">({allProjects.length})</span>
+              </div>
+            </button>
+            {Object.entries(portfolioStructure).map(([key, category]) => {
+              const Icon = categoryIcons[key]
+              const count = getProjectCount(key)
+              return (
+                <button
+                  key={key}
+                  onClick={() => handleMainCategoryClick(key)}
+                  className={cn(
+                    "px-4 py-4 rounded-xl text-sm font-bold uppercase tracking-wide transition-all border min-h-[80px] active:scale-95",
+                    selectedMainCategory === key
+                      ? "bg-accent text-black border-accent shadow-[0_0_20px_rgba(197,160,89,0.3)]"
+                      : "bg-zinc-900/50 text-white border-white/10"
+                  )}
+                >
+                  <div className="flex flex-col items-center gap-2">
+                    {Icon && <Icon className="w-6 h-6" />}
+                    <span className="text-xs leading-tight">{category.title}</span>
+                    <span className="text-[10px] opacity-70">({count})</span>
+                  </div>
+                </button>
+              )
+            })}
+          </div>
         </div>
       </section>
 
+      {/* Subcategory Navigation - Horizontal Scroll on Mobile */}
+      <AnimatePresence mode="wait">
+        {currentCategoryData && (
+          <motion.section
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="py-4 border-b border-white/5 bg-zinc-900/30"
+          >
+            <div className="container mx-auto px-4">
+              {/* Desktop: Center wrap */}
+              <div className="hidden md:flex flex-wrap gap-2 justify-center">
+                <button
+                  onClick={() => handleSubcategoryClick("all")}
+                  className={cn(
+                    "px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all min-h-[36px]",
+                    selectedSubcategory === "all"
+                      ? "bg-white/10 text-white border border-white/20"
+                      : "bg-transparent text-zinc-400 hover:text-white hover:bg-white/5"
+                  )}
+                >
+                  All {currentCategoryData.title}
+                </button>
+                {subcategories.map((sub) => (
+                  <button
+                    key={sub.key}
+                    onClick={() => handleSubcategoryClick(sub.key)}
+                    className={cn(
+                      "px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all min-h-[36px]",
+                      selectedSubcategory === sub.key
+                        ? "bg-white/10 text-white border border-white/20"
+                        : "bg-transparent text-zinc-400 hover:text-white hover:bg-white/5"
+                    )}
+                  >
+                    {sub.title}
+                  </button>
+                ))}
+              </div>
+
+              {/* Mobile: Horizontal Scroll with Snap */}
+              <div 
+                ref={subcategoryScrollRef}
+                className="flex md:hidden gap-2 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 -mx-4 px-4"
+              >
+                <button
+                  onClick={() => handleSubcategoryClick("all")}
+                  className={cn(
+                    "px-4 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all shrink-0 snap-start min-h-[44px]",
+                    selectedSubcategory === "all"
+                      ? "bg-white/10 text-white border border-white/20"
+                      : "bg-zinc-800/50 text-zinc-400 active:scale-95"
+                  )}
+                >
+                  All {currentCategoryData.title}
+                </button>
+                {subcategories.map((sub) => (
+                  <button
+                    key={sub.key}
+                    onClick={() => handleSubcategoryClick(sub.key)}
+                    className={cn(
+                      "px-4 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all shrink-0 snap-start min-h-[44px]",
+                      selectedSubcategory === sub.key
+                        ? "bg-white/10 text-white border border-white/20"
+                        : "bg-zinc-800/50 text-zinc-400 active:scale-95"
+                    )}
+                  >
+                    {sub.title}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </motion.section>
+        )}
+      </AnimatePresence>
+
       {/* Gallery Grid */}
-      <section className="py-12 container mx-auto px-4">
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          <AnimatePresence>
+      <section ref={galleryRef} className="py-12 container mx-auto px-4 scroll-mt-32">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`${selectedMainCategory}-${selectedSubcategory}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          >
             {filteredProjects.map((project) => (
               <motion.div
                 layout
@@ -119,7 +347,7 @@ const PortfolioPage = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 key={project.id}
-                className="group relative aspect-square bg-zinc-900 rounded-lg overflow-hidden border border-white/5 cursor-pointer"
+                className="group relative aspect-square bg-zinc-900 rounded-lg overflow-hidden border border-white/5 cursor-pointer active:scale-95 transition-transform"
               >
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-white/5 font-heading font-bold p-4 text-center uppercase">
                   <span className="text-4xl">{project.category}</span>
@@ -133,8 +361,16 @@ const PortfolioPage = () => {
                 </div>
               </motion.div>
             ))}
-          </AnimatePresence>
-        </motion.div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* No Results Message */}
+        {filteredProjects.length === 0 && (
+          <div className="text-center py-20">
+            <p className="text-zinc-400 text-lg">No projects found in this category yet.</p>
+            <p className="text-zinc-500 text-sm mt-2">Check back soon for new additions!</p>
+          </div>
+        )}
       </section>
     </div>
   )
