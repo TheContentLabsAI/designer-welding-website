@@ -8,11 +8,11 @@ import { Button } from "@/components/ui/button"
 const FeaturedWorks = () => {
   const [selectedProject, setSelectedProject] = useState(null)
 
-  // Select featured projects - one from each main category
+  // Curated featured projects - handpicked for visual impact
   const featuredProjects = [
-    portfolioProjects.find(p => p.subcategory === 'drivewayGates'), // Gates
-    portfolioProjects.find(p => p.subcategory === 'stairRailings'), // Railings
-    portfolioProjects.find(p => p.subcategory === 'securityDoors'), // Security
+    portfolioProjects.find(p => p.id === 1), // Modern Steel Driveway Gate
+    portfolioProjects.find(p => p.id === 105), // Ornate Wrought-Iron Stair Railing
+    portfolioProjects.find(p => p.id === 127), // Contemporary Security Door
   ].filter(Boolean) // Remove any undefined
 
   return (
