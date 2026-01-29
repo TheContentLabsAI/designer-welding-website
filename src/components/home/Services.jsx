@@ -65,7 +65,7 @@ const Services = () => {
             return (
               <motion.div
                 key={service.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 0 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ 
                   once: true,
@@ -73,20 +73,20 @@ const Services = () => {
                   margin: "0px 0px -100px 0px"
                 }}
                 transition={shouldReduceMotion ? { duration: 0 } : { 
-                  duration: 0.6,
-                  delay: index * 0.15,
-                  ease: [0.25, 0.1, 0.25, 1.0]
+                  duration: 0.8,
+                  delay: index * 0.1,
+                  ease: [0.22, 1, 0.36, 1] // Custom "easeOutQuint" for silky smooth stop
                 }}
                 style={{ willChange: "transform, opacity" }}
-                className="group relative bg-zinc-900 border border-white/5 rounded-xl p-8 hover:border-accent/30 transition-all duration-500 overflow-hidden"
+                className="group relative bg-zinc-900 border border-white/5 rounded-xl p-8 hover:border-accent/20 transition-all duration-700 overflow-hidden"
               >
-                {/* Hover Glow */}
-                <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-accent/20 blur-3xl rounded-full group-hover:bg-accent/40 transition-all duration-500"></div>
+                {/* Hover Glow - Subtler */}
+                <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-accent/10 blur-3xl rounded-full group-hover:bg-accent/30 transition-all duration-700"></div>
                 
                 <div className="relative z-10">
                   {/* Icon & Title */}
                   <div className="flex items-start justify-between mb-4">
-                    <div className="text-accent group-hover:scale-110 transition-transform">
+                    <div className="text-accent group-hover:scale-105 transition-transform duration-500">
                       <Icon className="w-12 h-12" />
                     </div>
                     <Link to={`/services#${service.id}`}>
