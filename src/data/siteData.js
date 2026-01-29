@@ -221,12 +221,13 @@ export const portfolioStructure = {
 // Helper function to get all subcategories as a flat array
 export const getAllSubcategories = () => {
   const subcategories = [];
-  Object.values(portfolioStructure).forEach(category => {
-    Object.values(category.subcategories).forEach(subcategory => {
+  Object.entries(portfolioStructure).forEach(([catKey, category]) => {
+    Object.entries(category.subcategories).forEach(([subKey, subcategory]) => {
       subcategories.push({
         ...subcategory,
+        subKey: subKey, // crucial for linking
         parentCategory: category.title,
-        parentSlug: category.slug
+        parentSlug: catKey // use key as slug for consistency with portfolioProjects
       });
     });
   });
