@@ -84,18 +84,36 @@ const Hero = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="flex flex-col items-center lg:items-start w-full"
             >
-              {/* Eyebrow Copy - Instant Clarity (Hack #4) */}
-              <div className="hidden md:flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-3 md:mb-4 bg-white/5 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10 max-w-full">
-                 <span className="text-accent text-[10px] sm:text-xs font-bold uppercase tracking-wider">Residential & Commercial Metal Fabrication</span>
-                 <span className="w-px h-3 bg-white/20"></span>
-                 <div className="flex items-center gap-1">
+              {/* Eyebrow Copy - Instant Clarity (Hack #4) - Mobile Optimized */}
+              <div className="flex flex-col md:flex-row md:flex-wrap items-center justify-center lg:justify-start gap-1.5 md:gap-2 mb-5 md:mb-6 bg-white/5 backdrop-blur-sm px-3 md:px-5 py-2 md:py-1.5 rounded-full border border-white/10 w-auto max-w-[95vw] md:max-w-full">
+                 {/* Mobile: Text on top, stars below */}
+                 <span className="text-accent text-[9px] md:hidden font-bold uppercase tracking-wide text-center leading-tight">
+                    Residential & Commercial Metal Fabrication
+                 </span>
+                 <div className="flex md:hidden items-center gap-1.5">
+                    <div className="flex items-center gap-0.5">
+                       {[...Array(5)].map((_, i) => (
+                         <svg key={i} className="w-3 h-3 fill-accent" viewBox="0 0 20 20">
+                           <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                         </svg>
+                       ))}
+                    </div>
+                    <span className="text-white/70 text-[10px] font-semibold">5.0</span>
+                 </div>
+                 
+                 {/* Desktop: Horizontal layout */}
+                 <span className="hidden md:inline text-accent text-[10px] lg:text-xs font-bold uppercase tracking-wider">
+                    Residential & Commercial Metal Fabrication
+                 </span>
+                 <span className="hidden md:block w-px h-3 bg-white/20"></span>
+                 <div className="hidden md:flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
                       <svg key={i} className="w-3 h-3 fill-accent" viewBox="0 0 20 20">
                         <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                       </svg>
                     ))}
                  </div>
-                 <span className="text-white/70 text-[10px] sm:text-xs font-medium">5.0 Stars</span>
+                 <span className="hidden md:inline text-white/70 text-[10px] sm:text-xs font-medium">5.0 Stars</span>
               </div>
 
               {/* Headline - Benefit-Focused, Not Feature-Focused (Hack #9) */}

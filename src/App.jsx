@@ -42,7 +42,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="flex flex-col min-h-screen bg-black text-foreground antialiased selection:bg-accent selection:text-black">
+      <div className="flex flex-col min-h-screen bg-black text-foreground antialiased selection:bg-accent selection:text-black overflow-x-hidden w-full relative">
         <ConversionPopup />
         
         <Navbar 

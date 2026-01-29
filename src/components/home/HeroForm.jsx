@@ -120,9 +120,9 @@ const HeroForm = () => {
       
       {/* Social Proof Badge */}
       <div className="absolute top-0 inset-x-0 -translate-y-1/2 flex justify-center">
-         <div className="bg-accent text-black text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-[0_0_15px_var(--accent)] flex items-center gap-1.5 animate-pulse">
-            <span className="w-1.5 h-1.5 rounded-full bg-black animate-ping"></span>
-            4 Neighbors in Orange County booked today
+         <div className="bg-accent text-black text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-[0_0_15px_var(--accent)] flex items-center justify-center gap-1.5 animate-pulse w-max max-w-[90%] mx-auto text-center whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full bg-black animate-ping shrink-0"></span>
+            <span className="truncate">4 Neighbors in Orange County booked today</span>
          </div>
       </div>
 
