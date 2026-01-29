@@ -158,7 +158,18 @@ const Hero = () => {
                       // Only scroll on mobile/tablet where form is below
                       if (window.innerWidth < 1024) {
                         e.preventDefault()
-                        document.getElementById('hero-form')?.scrollIntoView({ behavior: 'smooth' })
+                        const form = document.getElementById('hero-form')
+                        const firstInput = form?.querySelector('input')
+                        
+                        if (form) {
+                          form.scrollIntoView({ behavior: 'smooth' })
+                          // Focus input to bring up keyboard - need small delay for scroll to start
+                          setTimeout(() => {
+                            if (firstInput) {
+                              firstInput.focus({ preventScroll: true }) // preventScroll because we already scrolled smoothly
+                            }
+                          }, 500)
+                        }
                       } else {
                         e.preventDefault() // Prevent navigation on desktop
                       }

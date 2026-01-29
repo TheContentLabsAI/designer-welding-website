@@ -77,7 +77,7 @@ const Services = () => {
                   delay: index * 0.1,
                   ease: [0.22, 1, 0.36, 1] // Custom "easeOutQuint" for silky smooth stop
                 }}
-                style={{ willChange: "transform, opacity" }}
+                // style={{ willChange: "transform, opacity" }}
                 className="group relative bg-zinc-900 border border-white/5 rounded-xl p-8 hover:border-accent/20 transition-all duration-700 overflow-hidden"
               >
                 {/* Hover Glow - Subtler */}
