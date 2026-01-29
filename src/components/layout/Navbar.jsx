@@ -68,7 +68,12 @@ const Navbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                     )}
                   >
                     {link.name}
-                    <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                    <motion.div
+                      animate={{ rotate: isDropdownOpen ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </motion.div>
                   </Link>
 
                   {/* Desktop Dropdown - Hierarchical */}
@@ -133,21 +138,29 @@ const Navbar = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
               <Link
                 key={link.name}
                 to={link.href}
-                className={cn(
-                  "text-sm font-medium transition-colors uppercase tracking-wide",
-                  location.pathname === link.href 
-                    ? "text-accent" 
-                    : "text-white/90 hover:text-accent"
-                )}
+                className="relative group"
               >
-                {link.name}
+                <motion.span
+                  className={cn(
+                    "text-sm font-medium uppercase tracking-wide block py-2",
+                    location.pathname === link.href 
+                      ? "text-accent" 
+                      : "text-white/90 hover:text-accent transition-colors"
+                  )}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  {link.name}
+                </motion.span>
               </Link>
             )
           })}
           <a href={`tel:${companyInfo.phone.replace(/\D/g,'')}`}>
-            <Button variant="premium" size="sm" className="ml-4">
-              <Phone className="w-4 h-4 mr-2" />
-              {companyInfo.phone}
+            <Button variant="premium" size="sm" className="ml-4" asChild>
+                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Phone className="w-4 h-4 mr-2" />
+                    {companyInfo.phone}
+                </motion.button>
             </Button>
           </a>
         </div>

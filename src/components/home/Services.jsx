@@ -1,8 +1,9 @@
 import { motion, useReducedMotion } from "framer-motion"
 import { ChevronRight, Quote } from "lucide-react"
-import { Link } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { services } from "@/data/siteData"
 import { Button } from "@/components/ui/button"
+import { hoverScale } from "@/lib/motion"
 
 // Benefit-focused service data (Hack #9: Lead with benefits, not features)
 const serviceBenefits = {
@@ -42,6 +43,7 @@ const serviceBenefits = {
 
 const Services = () => {
   const shouldReduceMotion = useReducedMotion()
+  const navigate = useNavigate()
   
   return (
     <section className="py-24 bg-zinc-950 relative">
@@ -75,11 +77,10 @@ const Services = () => {
                 }}
                 style={{ 
                   backfaceVisibility: "hidden",
-                  WebkitBackfaceVisibility: "hidden",
-                  transform: "translate3d(0,0,0)",
-                  WebkitTransform: "translate3d(0,0,0)"
+                  WebkitBackfaceVisibility: "hidden"
                 }}
-                className="group relative bg-zinc-900 border border-white/5 rounded-xl p-8 hover:border-accent/20 transition-all duration-700 overflow-hidden transform-gpu"
+                whileHover={{ y: -5, borderColor: "rgba(234, 179, 8, 0.3)" }}
+                className="group relative bg-zinc-900 border border-white/5 rounded-xl p-8 transition-colors duration-300 overflow-hidden"
               >
                 {/* Hover Glow - Subtler */}
                 <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-accent/10 blur-3xl rounded-full group-hover:bg-accent/30 transition-all duration-700"></div>
@@ -87,9 +88,12 @@ const Services = () => {
                 <div className="relative z-10">
                   {/* Icon & Title */}
                   <div className="flex items-start justify-between mb-4">
-                    <div className="text-accent group-hover:scale-105 transition-transform duration-500">
+                    <motion.div 
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        className="text-accent"
+                    >
                       <Icon className="w-12 h-12" />
-                    </div>
+                    </motion.div>
                     <Link to={`/services#${service.id}`}>
                       <Button 
                         variant="ghost" 
@@ -142,14 +146,23 @@ const Services = () => {
 
         {/* CTA with Booster (Hack #11) */}
         <div className="text-center mt-12">
-          <Link to="/#hero-form" onClick={(e) => {
-            e.preventDefault()
-            document.getElementById('hero-form')?.scrollIntoView({ behavior: 'smooth' })
-          }}>
-            <Button variant="premium" size="lg" className="group">
-              Get Your Free Quote <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
+          <Button 
+            variant="premium" 
+            size="lg" 
+            className="group"
+            asChild
+            onClick={() => {
+              if (window.location.pathname !== "/") {
+                navigate("/", { state: { scrollTo: "hero-form" } })
+              } else {
+                document.getElementById('hero-form')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
+          >
+            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+               Get Your Free Quote <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+            </motion.button>
+          </Button>
           <p className="text-xs text-zinc-500 mt-3">
             Free consultation • Fast quotes • Licensed & insured
           </p>

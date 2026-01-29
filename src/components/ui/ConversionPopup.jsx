@@ -2,11 +2,21 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const ConversionPopup = () => {
   const [isVisible, setIsVisible] = useState(false)
   const [hasSeen, setHasSeen] = useState(false)
+  const navigate = useNavigate()
+
+  const handleGetCTA = () => {
+    handleClose()
+    if (window.location.pathname !== "/") {
+      navigate("/", { state: { scrollTo: "hero-form" } })
+    } else {
+      document.getElementById("hero-form")?.scrollIntoView({ behavior: "smooth" })
+    }
+  }
 
   useEffect(() => {
     // Check if user has already seen/dismissed the popup
@@ -82,11 +92,9 @@ const ConversionPopup = () => {
               </p>
               
               <div className="flex flex-col gap-3">
-                <Link to="/#hero-form" onClick={handleClose}>
-                  <Button variant="premium" className="w-full text-base h-12">
-                    Get My Free Quote
-                  </Button>
-                </Link>
+                <Button onClick={handleGetCTA} variant="premium" className="w-full text-base h-12">
+                  Get My Free Quote
+                </Button>
                 <button 
                   onClick={handleClose}
                   className="text-xs text-white/30 hover:text-white transition-colors underline decoration-white/30 hover:decoration-white"

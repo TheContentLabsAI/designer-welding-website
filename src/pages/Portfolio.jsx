@@ -278,23 +278,42 @@ const PortfolioPage = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
+                whileHover="hover"
                 key={project.id}
                 onClick={() => setSelectedProject(project)}
-                className="group relative aspect-square bg-zinc-900 rounded-lg overflow-hidden border border-white/5 cursor-pointer active:scale-95 transition-transform"
+                className="relative aspect-square bg-zinc-900 rounded-lg overflow-hidden border border-white/5 cursor-pointer"
               >
                 {/* Project Image */}
-                <img 
+                <motion.img 
+                  variants={{ hover: { scale: 1.1 } }}
+                  transition={{ duration: 0.7 }}
                   src={project.image}
                   alt={project.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="absolute inset-0 w-full h-full object-cover"
                   loading="lazy"
                 />
                 
                 {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center">
-                  <h3 className="text-xl font-heading font-bold text-white uppercase mb-2 translate-y-4 group-hover:translate-y-0 transition-transform">{project.title}</h3>
-                  <span className="text-accent text-xs uppercase tracking-widest translate-y-4 group-hover:translate-y-0 transition-transform delay-75">{currentCategoryData?.title || "Portfolio"}</span>
-                </div>
+                <motion.div 
+                    variants={{ hover: { opacity: 1 } }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute inset-0 bg-black/80 opacity-0 flex flex-col items-center justify-center p-6 text-center"
+                >
+                  <motion.h3 
+                    variants={{ hover: { y: 0 } }}
+                    transition={{ duration: 0.3 }}
+                    className="text-xl font-heading font-bold text-white uppercase mb-2 translate-y-4"
+                  >
+                      {project.title}
+                  </motion.h3>
+                  <motion.span 
+                    variants={{ hover: { y: 0 } }}
+                    transition={{ duration: 0.3, delay: 0.05 }}
+                    className="text-accent text-xs uppercase tracking-widest translate-y-4"
+                  >
+                      {currentCategoryData?.title || "Portfolio"}
+                  </motion.span>
+                </motion.div>
               </motion.div>
             ))}
           </motion.div>

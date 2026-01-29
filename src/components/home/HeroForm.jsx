@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { services } from "@/data/siteData"
 import { ChevronRight, Check, Loader2, ShieldCheck } from "lucide-react"
 import { cn, validatePhone } from "@/lib/utils"
+import { transition } from "@/lib/motion"
 
 const HeroForm = () => {
   const [formData, setFormData] = useState({
@@ -84,7 +85,11 @@ const HeroForm = () => {
         animate={{ opacity: 1, scale: 1 }}
         className="w-full max-w-md lg:max-w-[500px] bg-zinc-900/40 backdrop-blur-xl border border-accent/20 rounded-2xl p-8 text-center shadow-2xl relative overflow-hidden"
       >
-        <div className="absolute inset-0 bg-accent/5 animate-pulse"></div>
+        <motion.div 
+            animate={{ opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="absolute inset-0 bg-accent/5"
+        ></motion.div>
         <div className="relative z-10 flex flex-col items-center">
             <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mb-4 text-accent border border-accent/30">
                 <Check className="w-8 h-8" />
@@ -120,8 +125,12 @@ const HeroForm = () => {
       
       {/* Social Proof Badge */}
       <div className="absolute top-0 inset-x-0 -translate-y-1/2 flex justify-center">
-         <div className="bg-accent text-black text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-[0_0_15px_var(--accent)] flex items-center justify-center gap-1.5 animate-pulse w-max max-w-[90%] mx-auto text-center whitespace-nowrap">
-            <span className="w-1.5 h-1.5 rounded-full bg-black animate-ping shrink-0"></span>
+         <div className="bg-accent text-black text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-[0_0_15px_var(--accent)] flex items-center justify-center gap-1.5 w-max max-w-[90%] mx-auto text-center whitespace-nowrap">
+            <motion.span 
+                animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                className="w-1.5 h-1.5 rounded-full bg-black shrink-0"
+            ></motion.span>
             <span className="truncate">4 Neighbors in Orange County booked today</span>
          </div>
       </div>
@@ -143,7 +152,11 @@ const HeroForm = () => {
         </div>
 
         <h3 className="text-2xl md:text-3xl font-black text-white uppercase font-heading mb-2 text-center leading-none">
-            Start Your <span className="text-accent text-transparent bg-clip-text bg-gradient-to-r from-accent via-yellow-200 to-accent animate-text-shimmer bg-[length:200%_auto]">Free Consultation</span>
+            Start Your <motion.span 
+                animate={{ backgroundPosition: ["0% 50%", "100% 50%"] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                className="text-accent text-transparent bg-clip-text bg-gradient-to-r from-accent via-yellow-200 to-accent bg-[length:200%_auto]"
+            >Free Consultation</motion.span>
         </h3>
         <p className="text-muted-foreground text-xs md:text-sm text-center mb-5 md:mb-6 font-medium max-w-[90%] mx-auto">
            We meet to discuss your vision, assess the site & provide expert recommendations.
@@ -263,7 +276,12 @@ const HeroForm = () => {
                 className="w-full h-14 md:h-16 mt-2 bg-gradient-to-r from-accent to-yellow-500 text-black font-black uppercase tracking-wide hover:brightness-110 hover:scale-[1.02] shadow-[0_0_25px_-5px_var(--accent)] transition-all duration-300 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 text-base md:text-lg"
             >
                 {isSubmitting ? (
-                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    >
+                        <Loader2 className="w-5 h-5" />
+                    </motion.div>
                 ) : (
                     <span className="flex items-center gap-2">
                         Request Consultation <ChevronRight className="w-5 h-5 stroke-[3]" />

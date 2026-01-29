@@ -1,8 +1,10 @@
 import { Phone, FileText, Menu } from "lucide-react"
 import { motion } from "framer-motion"
+import { useNavigate } from "react-router-dom"
 import { companyInfo } from "@/data/siteData"
 
 const MobileBottomBar = ({ setIsMobileMenuOpen, isMobileMenuOpen }) => {
+  const navigate = useNavigate();
   return (
     <motion.div 
       initial={{ y: 100 }}
@@ -25,23 +27,10 @@ const MobileBottomBar = ({ setIsMobileMenuOpen, isMobileMenuOpen }) => {
            className="flex flex-col items-center gap-1 group w-full"
            onClick={(e) => {
              e.preventDefault();
-             
-             // Try to find the form on the current page
-             const form = document.querySelector('form');
-             const firstInput = document.querySelector('input[type="text"], input[placeholder*="Name"], input[placeholder*="name"]');
-             
-             if (form) {
-               // Scroll to form with offset for fixed header
-               const formTop = form.getBoundingClientRect().top + window.pageYOffset - 100;
-               window.scrollTo({ top: formTop, behavior: 'smooth' });
-               
-               // Focus first input after scroll completes
-               setTimeout(() => {
-                 firstInput?.focus();
-               }, 500);
+             if (window.location.pathname !== "/") {
+                navigate("/", { state: { scrollTo: "hero-form" } });
              } else {
-               // If no form on current page, navigate to home and scroll to form
-               window.location.href = '/#hero-form';
+               document.getElementById("hero-form")?.scrollIntoView({ behavior: "smooth" });
              }
            }}
         >

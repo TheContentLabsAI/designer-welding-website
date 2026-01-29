@@ -1,3 +1,5 @@
+import { useEffect } from "react"
+import { useLocation } from "react-router-dom"
 import Hero from "@/components/home/Hero"
 import Services from "@/components/home/Services"
 import FeaturedWorks from "@/components/gallery/FeaturedWorks"
@@ -10,6 +12,22 @@ import { Button } from "@/components/ui/button"
 import { Phone, Mail } from "lucide-react"
 
 const Home = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.scrollTo === "hero-form") {
+      const form = document.getElementById("hero-form");
+      if (form) {
+        // Short delay to ensure DOM is ready and transition is smooth
+        setTimeout(() => {
+          form.scrollIntoView({ behavior: "smooth" });
+          // Focus the first input for better UX
+          const input = form.querySelector("input");
+          if (input) input.focus({ preventScroll: true });
+        }, 100);
+      }
+    }
+  }, [location]);
   return (
     <div className="flex flex-col min-h-screen bg-black">
       {/* 1. Hook & Authority - Dark */}

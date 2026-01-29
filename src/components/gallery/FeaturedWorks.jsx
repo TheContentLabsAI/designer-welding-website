@@ -1,11 +1,12 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { X, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const FeaturedWorks = () => {
   const [selectedProject, setSelectedProject] = useState(null)
+  const navigate = useNavigate()
 
   // Original placeholder projects with v2 images
   const featuredProjects = [
@@ -120,11 +121,19 @@ const FeaturedWorks = () => {
                                     {selectedProject.description}
                                 </p>
                                 <div className="flex gap-4">
-                                    <Link to="/#hero-form" onClick={() => setSelectedProject(null)}>
-                                        <Button className="bg-accent text-black hover:bg-white">
-                                            Get a Quote <ChevronRight className="w-4 h-4 ml-2" />
-                                        </Button>
-                                    </Link>
+                                    <Button 
+                                      className="bg-accent text-black hover:bg-white"
+                                      onClick={() => {
+                                        setSelectedProject(null)
+                                        if (window.location.pathname !== "/") {
+                                            navigate("/", { state: { scrollTo: "hero-form" } })
+                                        } else {
+                                            document.getElementById('hero-form')?.scrollIntoView({ behavior: 'smooth' })
+                                        }
+                                      }}
+                                    >
+                                        Get a Quote <ChevronRight className="w-4 h-4 ml-2" />
+                                    </Button>
                                     <Link to="/portfolio" onClick={() => setSelectedProject(null)}>
                                         <Button variant="outline" className="border-white/10 text-white hover:bg-white/10">
                                             See All Projects
