@@ -1,19 +1,36 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Link } from "react-router-dom"
-import portfolioProjects from "@/data/portfolioProjects"
 import { X, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const FeaturedWorks = () => {
   const [selectedProject, setSelectedProject] = useState(null)
 
-  // Curated featured projects - handpicked for visual impact
+  // Original placeholder projects with v2 images
   const featuredProjects = [
-    portfolioProjects.find(p => p.id === 1), // Modern Steel Driveway Gate
-    portfolioProjects.find(p => p.id === 105), // Ornate Wrought-Iron Stair Railing
-    portfolioProjects.find(p => p.id === 127), // Contemporary Security Door
-  ].filter(Boolean) // Remove any undefined
+    {
+      id: 1,
+      title: "Custom Metal Gate",
+      category: "Gates",
+      image: "/images/project-gate-v2.png",
+      description: "Elegant custom metal gate with intricate design patterns"
+    },
+    {
+      id: 2,
+      title: "Decorative Railings",
+      category: "Railings",
+      image: "/images/project-railings-v2.png",
+      description: "Beautiful ornamental railings for residential properties"
+    },
+    {
+      id: 3,
+      title: "Security Door",
+      category: "Security",
+      image: "/images/project-door-v2.png",
+      description: "Heavy-duty security door with modern aesthetic"
+    }
+  ]
 
   return (
     <section className="py-24 bg-zinc-950 relative border-t border-white/5">
@@ -60,7 +77,7 @@ const FeaturedWorks = () => {
                     <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black to-transparent flex flex-col justify-end p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                         <span className="text-accent text-xs font-bold uppercase tracking-widest mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">{project.category}</span>
                         <h3 className="text-2xl font-bold text-white mb-2">{project.title}</h3>
-                        <p className="text-zinc-300 line-clamp-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Premium custom metalwork</p>
+                        <p className="text-zinc-300 line-clamp-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">{project.description}</p>
                     </div>
                 </motion.div>
             ))}
@@ -100,7 +117,7 @@ const FeaturedWorks = () => {
                                 <span className="text-accent uppercase tracking-widest text-xs font-bold mb-4">{selectedProject.category}</span>
                                 <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-6 uppercase leading-none">{selectedProject.title}</h3>
                                 <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-                                    Premium custom metalwork crafted with precision and attention to detail.
+                                    {selectedProject.description}
                                 </p>
                                 <div className="flex gap-4">
                                     <Link to="/#hero-form" onClick={() => setSelectedProject(null)}>
