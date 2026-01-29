@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { portfolioStructure } from "@/data/siteData"
 import portfolioProjects from "@/data/portfolioProjects"
 import { cn } from "@/lib/utils"
-import { ChevronRight, Home } from "lucide-react"
+import { ChevronRight, Home, X, ChevronLeft } from "lucide-react"
 
 const PortfolioPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -13,6 +13,7 @@ const PortfolioPage = () => {
   
   const [selectedMainCategory, setSelectedMainCategory] = useState(mainCategory)
   const [selectedSubcategory, setSelectedSubcategory] = useState(subcategory)
+  const [selectedProject, setSelectedProject] = useState(null)
   const galleryRef = useRef(null)
 
   // Update state when URL params change
@@ -83,6 +84,39 @@ const PortfolioPage = () => {
     }
   })()
 
+  // Navigation functions for modal
+  const navigateToNextProject = () => {
+    if (!selectedProject) return
+    const currentIndex = filteredProjects.findIndex(p => p.id === selectedProject.id)
+    const nextIndex = (currentIndex + 1) % filteredProjects.length
+    setSelectedProject(filteredProjects[nextIndex])
+  }
+
+  const navigateToPreviousProject = () => {
+    if (!selectedProject) return
+    const currentIndex = filteredProjects.findIndex(p => p.id === selectedProject.id)
+    const previousIndex = currentIndex === 0 ? filteredProjects.length - 1 : currentIndex - 1
+    setSelectedProject(filteredProjects[previousIndex])
+  }
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!selectedProject) return
+      
+      if (e.key === 'ArrowRight') {
+        navigateToNextProject()
+      } else if (e.key === 'ArrowLeft') {
+        navigateToPreviousProject()
+      } else if (e.key === 'Escape') {
+        setSelectedProject(null)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedProject, filteredProjects])
+
   // Breadcrumb data
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -151,7 +185,7 @@ const PortfolioPage = () => {
       </section>
 
       {/* Main Category Navigation - Horizontal Scroll */}
-      <section className="py-6 border-b border-white/5 sticky top-20 bg-black/95 backdrop-blur-md z-40">
+      <section className="py-6 border-b border-white/5 bg-black/95 backdrop-blur-md z-40">
         <div className="container mx-auto px-4">
           <div className="flex gap-3 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 -mx-4 px-4">
             <button
@@ -245,6 +279,7 @@ const PortfolioPage = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 key={project.id}
+                onClick={() => setSelectedProject(project)}
                 className="group relative aspect-square bg-zinc-900 rounded-lg overflow-hidden border border-white/5 cursor-pointer active:scale-95 transition-transform"
               >
                 {/* Project Image */}
@@ -273,6 +308,83 @@ const PortfolioPage = () => {
           </div>
         )}
       </section>
+
+      {/* Image Modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm"
+            onClick={() => setSelectedProject(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-6xl w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute -top-12 right-0 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-10"
+              >
+                <X className="w-6 h-6" />
+              </button>
+
+              {/* Image */}
+              <div className="relative bg-zinc-900 rounded-lg overflow-hidden">
+                <img
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  className="w-full h-auto max-h-[85vh] object-contain"
+                />
+                
+                {/* Navigation Arrows */}
+                {filteredProjects.length > 1 && (
+                  <>
+                    {/* Previous Button */}
+                    <button
+                      onClick={navigateToPreviousProject}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center text-white transition-all hover:scale-110 z-10"
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft className="w-6 h-6" />
+                    </button>
+
+                    {/* Next Button */}
+                    <button
+                      onClick={navigateToNextProject}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center text-white transition-all hover:scale-110 z-10"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight className="w-6 h-6" />
+                    </button>
+                  </>
+                )}
+                
+                {/* Image Info Overlay */}
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/80 to-transparent p-6">
+                  <span className="text-accent text-xs uppercase tracking-widest font-bold mb-2 block">
+                    {currentCategoryData?.title || "Portfolio"}
+                  </span>
+                  <h3 className="text-2xl md:text-3xl font-heading font-bold text-white uppercase">
+                    {selectedProject.title}
+                  </h3>
+                  {selectedProject.material && (
+                    <p className="text-zinc-300 text-sm mt-2">
+                      {selectedProject.style} • {selectedProject.material} • {selectedProject.finish}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
