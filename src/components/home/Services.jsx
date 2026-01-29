@@ -67,18 +67,19 @@ const Services = () => {
                 key={service.id}
                 initial={{ opacity: 0, y: 0 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ 
-                  once: true,
-                  amount: 0.3,
-                  margin: "0px 0px -100px 0px"
-                }}
+                viewport={{ once: true }}
                 transition={shouldReduceMotion ? { duration: 0 } : { 
                   duration: 0.8,
                   delay: index * 0.1,
-                  ease: [0.22, 1, 0.36, 1] // Custom "easeOutQuint" for silky smooth stop
+                  ease: [0.22, 1, 0.36, 1]
                 }}
-                // style={{ willChange: "transform, opacity" }}
-                className="group relative bg-zinc-900 border border-white/5 rounded-xl p-8 hover:border-accent/20 transition-all duration-700 overflow-hidden"
+                style={{ 
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
+                  transform: "translate3d(0,0,0)",
+                  WebkitTransform: "translate3d(0,0,0)"
+                }}
+                className="group relative bg-zinc-900 border border-white/5 rounded-xl p-8 hover:border-accent/20 transition-all duration-700 overflow-hidden transform-gpu"
               >
                 {/* Hover Glow - Subtler */}
                 <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-accent/10 blur-3xl rounded-full group-hover:bg-accent/30 transition-all duration-700"></div>
