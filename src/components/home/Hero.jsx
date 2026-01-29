@@ -99,7 +99,7 @@ const Hero = () => {
               </div>
 
               {/* Headline - Benefit-Focused, Not Feature-Focused (Hack #9) */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-black text-white uppercase tracking-tight leading-[1.05] mb-3 md:mb-4 drop-shadow-2xl text-center lg:text-left">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-black text-white uppercase tracking-normal leading-[1.05] mb-3 md:mb-4 drop-shadow-2xl text-center lg:text-left">
                 Security & Beauty.<br className="hidden sm:block"/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-yellow-200 to-accent">
                   Built to Last.
