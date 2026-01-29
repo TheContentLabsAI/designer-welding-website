@@ -114,43 +114,43 @@ const HeroForm = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5, duration: 0.8 }}
-      className="w-full max-w-md lg:max-w-[500px] bg-zinc-900/80 backdrop-blur-xl border-2 border-accent/60 rounded-2xl p-6 md:p-10 shadow-[0_0_50px_-10px_rgba(234,179,8,0.3)] relative group transition-all duration-300"
+      className="w-full max-w-md lg:max-w-[500px] bg-zinc-900/80 backdrop-blur-xl border-2 border-accent/60 rounded-2xl p-8 md:p-10 shadow-[0_0_50px_-10px_rgba(234,179,8,0.3)] relative group transition-all duration-300"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-accent/10 to-transparent pointer-events-none"></div>
       
       {/* Social Proof Badge */}
       <div className="absolute top-0 inset-x-0 -translate-y-1/2 flex justify-center">
-         <div className="bg-accent text-black text-xs md:text-sm font-bold uppercase tracking-wider px-4 py-2 rounded-full shadow-[0_0_15px_var(--accent)] flex items-center gap-2 animate-pulse">
-            <span className="w-2 h-2 rounded-full bg-black animate-ping"></span>
+         <div className="bg-accent text-black text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-[0_0_15px_var(--accent)] flex items-center gap-1.5 animate-pulse">
+            <span className="w-1.5 h-1.5 rounded-full bg-black animate-ping"></span>
             4 Neighbors in Orange County booked today
          </div>
       </div>
 
-      <div className="relative z-10 pt-4 md:pt-2">
+      <div className="relative z-10 pt-2">
         {/* Review Snippet */}
-        <div className="flex items-center justify-center gap-2.5 mb-4 md:mb-5 opacity-90">
+        <div className="flex items-center justify-center gap-2 mb-3 md:mb-4 opacity-90">
             <div className="flex -space-x-2">
                 {[1,2,3].map(i => (
-                    <div key={i} className="w-7 h-7 rounded-full border border-zinc-900 bg-gray-200 flex items-center justify-center text-[8px] font-bold text-black overflow-hidden">
+                    <div key={i} className="w-6 h-6 rounded-full border border-zinc-900 bg-gray-200 flex items-center justify-center text-[8px] font-bold text-black overflow-hidden">
                         <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="User" />
                     </div>
                 ))}
             </div>
-            <p className="text-white/80 text-xs md:text-sm font-medium leading-tight">
+            <p className="text-white/80 text-[10px] md:text-[11px] font-medium leading-tight">
                 "Best investment for our home." <br/>
                 <span className="text-accent opacity-80">- Sarah T., Orange County</span>
             </p>
         </div>
 
-        <h3 className="text-2xl md:text-3xl font-black text-white uppercase font-heading mb-3 text-center leading-tight">
+        <h3 className="text-2xl md:text-3xl font-black text-white uppercase font-heading mb-2 text-center leading-none">
             Start Your <span className="text-accent text-transparent bg-clip-text bg-gradient-to-r from-accent via-yellow-200 to-accent animate-text-shimmer bg-[length:200%_auto]">Free Consultation</span>
         </h3>
-        <p className="text-muted-foreground text-sm md:text-base text-center mb-6 md:mb-7 font-medium max-w-[90%] mx-auto leading-relaxed">
+        <p className="text-muted-foreground text-xs md:text-sm text-center mb-5 md:mb-6 font-medium max-w-[90%] mx-auto">
            We meet to discuss your vision, assess the site & provide expert recommendations.
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5" id="hero-form">
-            <div className="space-y-4 md:space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4" id="hero-form">
+            <div className="space-y-3 md:space-y-4">
                 {/* First & Last Name - Matching Contact Form */}
                 <div className="grid grid-cols-2 gap-3 md:gap-4">
                     <div className="group/input relative">
@@ -260,7 +260,7 @@ const HeroForm = () => {
             <Button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full h-16 md:h-[72px] mt-3 bg-gradient-to-r from-accent to-yellow-500 text-black font-black uppercase tracking-wide hover:brightness-110 hover:scale-[1.02] shadow-[0_0_25px_-5px_var(--accent)] transition-all duration-300 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 text-base md:text-lg min-h-[44px]"
+                className="w-full h-14 md:h-16 mt-2 bg-gradient-to-r from-accent to-yellow-500 text-black font-black uppercase tracking-wide hover:brightness-110 hover:scale-[1.02] shadow-[0_0_25px_-5px_var(--accent)] transition-all duration-300 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 text-base md:text-lg"
             >
                 {isSubmitting ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
@@ -271,8 +271,8 @@ const HeroForm = () => {
                 )}
             </Button>
             
-            <p className="text-xs text-center text-white/30 mt-4 flex items-center justify-center gap-3">
-                <span className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5 text-accent" /> Free Quote</span>
+            <p className="text-[10px] text-center text-white/30 mt-3 flex items-center justify-center gap-3">
+                <span className="flex items-center gap-1"><ShieldCheck className="w-3 h-3 text-accent" /> Free Quote</span>
                 <span className="w-px h-3 bg-white/10"></span>
                 <span>No Spam Policy</span>
             </p>
