@@ -24,7 +24,7 @@ const Hero = () => {
   const y2 = useTransform(scrollY, [0, 500], [0, isMobile ? 0 : -150], { clamp: true });
 
   return (
-    <section className="relative min-h-screen w-full flex items-center overflow-hidden bg-black pt-24 pb-20 md:py-0">
+    <section className="relative min-h-screen w-full flex items-center overflow-hidden bg-black pt-28 pb-24 md:py-0">
       {/* Dynamic Cinematic Background */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
         {/* Base Gradient - Warmer/Richer for "Industrial Luxury" */}
@@ -74,7 +74,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="container relative z-10 px-4 h-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16 max-w-[1400px] mx-auto">
+      <div className="container relative z-10 px-4 h-full flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 max-w-[1400px] mx-auto">
         
         {/* Left Column: Authority & Copy - Optimized for conversion */}
         <div className="w-full lg:w-[55%] relative z-20 flex flex-col justify-center text-center lg:text-left items-center lg:items-start order-1">
@@ -85,8 +85,8 @@ const Hero = () => {
               className="flex flex-col items-center lg:items-start w-full"
             >
               {/* Eyebrow Copy - Instant Clarity (Hack #4) */}
-              <div className="flex items-center gap-2 mb-3 md:mb-4 bg-white/5 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
-                 <span className="text-accent text-xs font-bold uppercase tracking-wider">Residential & Commercial Metal Fabrication</span>
+              <div className="flex items-center gap-2 mb-6 md:mb-8 bg-white/5 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10 whitespace-nowrap">
+                 <span className="text-accent text-[10px] md:text-sm font-bold uppercase tracking-wider">Residential & Commercial Metal Fabrication</span>
                  <span className="w-px h-3 bg-white/20"></span>
                  <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
@@ -95,39 +95,41 @@ const Hero = () => {
                       </svg>
                     ))}
                  </div>
-                 <span className="text-white/70 text-xs font-medium">5.0 Stars</span>
+                 <span className="text-white/70 text-[10px] md:text-sm font-medium">5.0 Stars</span>
               </div>
 
               {/* Headline - Benefit-Focused, Not Feature-Focused (Hack #9) */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-black text-white uppercase tracking-tight leading-[1.05] mb-3 md:mb-4 drop-shadow-2xl text-center lg:text-left">
-                Security & Beauty.<br className="hidden sm:block"/>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-black text-white uppercase tracking-wide leading-[1.1] mb-0 drop-shadow-2xl text-center lg:text-left">
+                Security & Beauty.
+              </h1>
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-black uppercase tracking-wide leading-[1.1] mb-6 md:mb-8 drop-shadow-2xl text-center lg:text-left">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-yellow-200 to-accent">
                   Built to Last.
                 </span>
-              </h1>
+              </h2>
 
               {/* Conversational Copy - Human Connection (Hack #5) */}
-              <div className="flex flex-col gap-2 md:gap-3 mb-5 md:mb-6 text-center lg:text-left">
-                  <p className="text-lg lg:text-xl text-white font-semibold leading-tight max-w-xl">
+              <div className="flex flex-col gap-4 md:gap-5 mb-8 md:mb-10 text-center lg:text-left">
+                  <p className="text-xl lg:text-2xl text-white font-semibold leading-relaxed max-w-xl">
                      Your property deserves more than basic security. It deserves craftsmanship that increases value and makes a statement.
                   </p>
-                  <p className="text-sm lg:text-base text-zinc-300 leading-relaxed max-w-xl">
+                  <p className="text-base lg:text-lg text-zinc-300 leading-relaxed max-w-xl">
                      We've secured 500+ Orange County properties - from luxury homes to commercial buildings - with custom metalwork that impresses.
                   </p>
               </div>
 
               {/* Social Proof - Above the Fold (Hack #1) */}
-              <div className="flex flex-col sm:flex-row items-center gap-4 mb-5 md:mb-6 w-full justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row items-center gap-5 mb-8 md:mb-10 w-full justify-center lg:justify-start">
                   <div className="flex -space-x-2">
                       {[11,12,13,14,15].map(i => (
-                          <div key={i} className="w-10 h-10 rounded-full border-2 border-zinc-900 bg-gray-200 overflow-hidden">
+                          <div key={i} className="w-12 h-12 rounded-full border-2 border-zinc-900 bg-gray-200 overflow-hidden">
                               <img src={`https://i.pravatar.cc/100?img=${i}`} alt="Happy customer" className="w-full h-full object-cover" />
                           </div>
                       ))}
                   </div>
                   <div className="text-center sm:text-left">
-                      <p className="text-white font-bold text-sm">500+ Satisfied Clients</p>
-                      <p className="text-zinc-400 text-xs">Average project: 4.8/5 stars</p>
+                      <p className="text-white font-bold text-lg">500+ Satisfied Clients</p>
+                      <p className="text-zinc-400 text-base">Average project: 4.8/5 stars</p>
                   </div>
               </div>
 
@@ -168,33 +170,33 @@ const Hero = () => {
                   >
                       <Button 
                           variant="premium"
-                          className="w-full sm:w-auto font-black uppercase tracking-wide h-14 px-8 text-base transition-all duration-300 hover:scale-105 shadow-[0_0_30px_-5px_var(--accent)]"
+                          className="w-full sm:w-auto font-black uppercase tracking-wide h-[68px] px-12 text-lg md:text-xl transition-all duration-300 hover:scale-105 shadow-[0_0_30px_-5px_var(--accent)] min-h-[44px]"
                       >
-                          Get Your Free Quote Now <ChevronRight className="ml-2 w-5 h-5" />
+                          Get Your Free Quote Now <ChevronRight className="ml-2 w-6 h-6" />
                       </Button>
                   </Link>
                   {/* CTA Booster - Small Text for Big Impact */}
-                  <p className="text-xs text-zinc-400 text-center sm:text-left flex items-center justify-center sm:justify-start gap-2">
-                      <ShieldCheck className="w-3 h-3 text-accent" />
+                  <p className="text-sm md:text-base text-zinc-400 text-center sm:text-left flex items-center justify-center sm:justify-start gap-2">
+                      <ShieldCheck className="w-4 h-4 text-accent" />
                       Free consultation • No pressure • Licensed & insured
                   </p>
               </div>
 
               {/* Stats - Compact, Benefit-Focused */}
-              <div className="flex items-center gap-6 md:gap-8 mt-6 md:mt-7 pt-5 md:pt-6 border-t border-white/10 w-full justify-center lg:justify-start">
+              <div className="flex items-center gap-10 md:gap-12 mt-10 md:mt-12 pt-8 md:pt-10 border-t border-white/10 w-full justify-center lg:justify-start">
                   <div className="text-center lg:text-left">
-                      <div className="text-3xl md:text-4xl font-black text-accent font-heading">25+</div>
-                      <div className="text-[10px] md:text-xs text-zinc-400 uppercase tracking-wider font-bold mt-1">Years Trusted</div>
+                      <div className="text-4xl md:text-5xl font-black text-accent font-heading mb-2">25+</div>
+                      <div className="text-sm md:text-base text-zinc-400 uppercase tracking-wider font-bold">Years Trusted</div>
                   </div>
-                  <div className="w-px h-10 bg-white/10"></div>
+                  <div className="w-px h-14 bg-white/10"></div>
                   <div className="text-center lg:text-left">
-                      <div className="text-3xl md:text-4xl font-black text-accent font-heading">500+</div>
-                      <div className="text-[10px] md:text-xs text-zinc-400 uppercase tracking-wider font-bold mt-1">Projects Completed</div>
+                      <div className="text-4xl md:text-5xl font-black text-accent font-heading mb-2">500+</div>
+                      <div className="text-sm md:text-base text-zinc-400 uppercase tracking-wider font-bold">Projects Completed</div>
                   </div>
-                  <div className="w-px h-10 bg-white/10"></div>
+                  <div className="w-px h-14 bg-white/10"></div>
                   <div className="text-center lg:text-left">
-                      <div className="text-3xl md:text-4xl font-black text-accent font-heading">100%</div>
-                      <div className="text-[10px] md:text-xs text-zinc-400 uppercase tracking-wider font-bold mt-1">Satisfaction</div>
+                      <div className="text-4xl md:text-5xl font-black text-accent font-heading mb-2">100%</div>
+                      <div className="text-sm md:text-base text-zinc-400 uppercase tracking-wider font-bold">Satisfaction</div>
                   </div>
               </div>
             </motion.div>
