@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { MessageSquare, PenTool, Hammer, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const ProcessTimeline = () => {
+  const navigate = useNavigate();
   const steps = [
     {
       id: "01",
@@ -82,11 +84,18 @@ const ProcessTimeline = () => {
         </div>
 
         <div className="mt-16 text-center">
-            <a href="#contact">
-              <Button className="h-14 px-8 bg-white hover:bg-accent hover:text-black text-black uppercase tracking-wide group transition-all font-bold border-2 border-transparent hover:border-accent">
-                  Start Your Project <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </a>
+            <Button 
+                onClick={() => {
+                   if (window.location.pathname !== "/") {
+                     navigate("/", { state: { scrollTo: "hero-form" } })
+                   } else {
+                     document.getElementById('hero-form')?.scrollIntoView({ behavior: 'smooth' })
+                   }
+                }}
+                className="h-14 px-8 bg-white hover:bg-accent hover:text-black text-black uppercase tracking-wide group transition-all font-bold border-2 border-transparent hover:border-accent"
+            >
+                Start Your Project <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
         </div>
       </div>
     </section>
