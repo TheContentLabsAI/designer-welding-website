@@ -7,6 +7,7 @@ import ServicesPage from "@/pages/Services"
 import PortfolioPage from "@/pages/Portfolio"
 import AboutPage from "@/pages/About"
 import ContactPage from "@/pages/Contact"
+import NotFound from "@/pages/NotFound"
 import { AnimatePresence, motion } from "framer-motion"
 import { X, ChevronDown, Phone, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -193,6 +194,7 @@ function App() {
             <Route path="/portfolio" element={<PortfolioPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
