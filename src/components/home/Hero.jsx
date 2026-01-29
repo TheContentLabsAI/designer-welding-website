@@ -85,8 +85,8 @@ const Hero = () => {
               className="flex flex-col items-center lg:items-start w-full"
             >
               {/* Eyebrow Copy - Instant Clarity (Hack #4) */}
-              <div className="flex items-center gap-2 mb-3 md:mb-4 bg-white/5 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
-                 <span className="text-accent text-xs font-bold uppercase tracking-wider">Residential & Commercial Metal Fabrication</span>
+              <div className="hidden md:flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-3 md:mb-4 bg-white/5 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10 max-w-full">
+                 <span className="text-accent text-[10px] sm:text-xs font-bold uppercase tracking-wider">Residential & Commercial Metal Fabrication</span>
                  <span className="w-px h-3 bg-white/20"></span>
                  <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
@@ -95,12 +95,12 @@ const Hero = () => {
                       </svg>
                     ))}
                  </div>
-                 <span className="text-white/70 text-xs font-medium">5.0 Stars</span>
+                 <span className="text-white/70 text-[10px] sm:text-xs font-medium">5.0 Stars</span>
               </div>
 
               {/* Headline - Benefit-Focused, Not Feature-Focused (Hack #9) */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-black text-white uppercase tracking-normal leading-[1.05] mb-3 md:mb-4 drop-shadow-2xl text-center lg:text-left">
-                Security & Beauty.<br className="hidden sm:block"/>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-black text-white uppercase tracking-normal leading-[0.9] mb-3 md:mb-4 drop-shadow-2xl text-center lg:text-left">
+                Security & Beauty.<br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-yellow-200 to-accent">
                   Built to Last.
                 </span>
